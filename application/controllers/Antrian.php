@@ -2,6 +2,12 @@
 
 class Antrian extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Antrian_m', 'antrian');
+    }
+
     public function index()
     {
         $this->form_validation->set_rules('nama_pasien', 'Nama Pasien', 'required');
@@ -15,7 +21,11 @@ class Antrian extends CI_Controller
             $this->load->view('Antrian/index');
             $this->load->view('templates/footer');
         } else {
-            var_dump($this->input->post());
+            $this->antrian->fill($this->input->post());
+
+            $this->antrian->insert();
+            var_dump($this->antrian);
+            die;
         }
     }
 

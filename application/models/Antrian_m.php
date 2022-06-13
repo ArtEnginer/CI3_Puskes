@@ -1,21 +1,6 @@
 <?php
-
-defined('BASEPATH') or exit('No direct script access allowed');
-
-/**
- * Class User
- * This class demonstrate how a model class should be:
- * 1. should extends MY_Model
- * 2. should have the property $table: the name of the corresponding db table
- * 3. should have the property $id: also on db each table should have the 'id' field
- */
-
-class Antrian_m extends MY_Model
+class Antrian_m extends CI_Model
 {
-
-    public $table = 'antrian';
-
-    public $id;
     public $kode_antrian;
     public $nomor_antrian;
     public $nama_pasien;
@@ -39,6 +24,68 @@ class Antrian_m extends MY_Model
                     $this->{$key} = $value;
                 }
             }
+            $this->inisiasi();
+            return $this;
+        }
+    }
+
+    public function insert()
+    {
+        $this->inisiasi();
+        $this->db->insert('antrian', $this);
+    }
+
+    public function inisiasi()
+    {
+        $this->generateKodeAntrian();
+        $this->generateNomorAntrian();
+        $this->generateDate();
+        $this->generateTime();
+        $this->setStatus();
+    }
+
+    public function generateKodeAntrian()
+    {
+        if ($this->kode_antrian === null) {
+            $hash = hash('md5', $this->nama_pasien . date('Y-m-d H:i:s'));
+            $this->kode_antrian = strtoupper(substr($hash, 0, 8));
+        }
+    }
+
+    public function generateNomorAntrian()
+    {
+        $this->db->select_max('nomor_antrian');
+        $this->db->like('created_at', date('Y-m'));
+        $query = $this->db->get('antrian');
+        if ($this->nomor_antrian === null) {
+            if ($query->result_object()[0]->nomor_antrian) {
+                $this->nomor_antrian = sprintf("%03d", $query->result_object()[0]->nomor_antrian + 1);
+            } else {
+                $this->nomor_antrian =  '001';
+            }
+        }
+    }
+
+    public function generateDate()
+    {
+        if ($this->tanggal === null) {
+            $this->tanggal = date('Y-m-d');
+        }
+    }
+
+    public function generateTime()
+    {
+        if ($this->created_at === null) {
+            $this->created_at = date('Y-m-d H:i:s');
+        }
+    }
+
+    public function setStatus($code = null)
+    {
+        if ($code) {
+            $this->status = $code;
+        } else {
+            $this->status = 0;
         }
     }
 }

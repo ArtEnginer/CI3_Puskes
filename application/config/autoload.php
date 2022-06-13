@@ -14,3 +14,5 @@ $autoload['config'] = array();
 $autoload['language'] = array();
 
 $autoload['model'] = array();
+
+date_default_timezone_set('Asia/Jakarta');
