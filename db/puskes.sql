@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 10, 2022 at 01:16 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 5.6.40
+-- Host: localhost
+-- Generation Time: Jun 13, 2022 at 02:23 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,6 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `antrian`
+--
+
+CREATE TABLE `antrian` (
+  `id` int(11) NOT NULL,
+  `kode_antrian` varchar(32) NOT NULL,
+  `nomot_antrian` int(8) NOT NULL,
+  `nama_pasien` varchar(64) NOT NULL,
+  `alamat_pasien` text NOT NULL,
+  `jenis_kelamin` varchar(16) NOT NULL,
+  `keluhan` text NOT NULL,
+  `nomor_kis` int(32) UNSIGNED NOT NULL,
+  `tanggal` date NOT NULL DEFAULT current_timestamp(),
+  `status` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `keys`
 --
 
@@ -33,9 +52,9 @@ CREATE TABLE `keys` (
   `user_id` int(11) NOT NULL,
   `key` varchar(40) NOT NULL,
   `level` int(2) NOT NULL,
-  `ignore_limits` tinyint(1) NOT NULL DEFAULT '0',
-  `is_private_key` tinyint(1) NOT NULL DEFAULT '0',
-  `ip_addresses` text,
+  `ignore_limits` tinyint(1) NOT NULL DEFAULT 0,
+  `is_private_key` tinyint(1) NOT NULL DEFAULT 0,
+  `ip_addresses` text DEFAULT NULL,
   `date_created` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -78,7 +97,7 @@ INSERT INTO `limits` (`id`, `uri`, `count`, `hour_started`, `api_key`) VALUES
 CREATE TABLE `statistik` (
   `ip` varchar(20) NOT NULL,
   `tanggal` date NOT NULL,
-  `hits` int(11) NOT NULL DEFAULT '1',
+  `hits` int(11) NOT NULL DEFAULT 1,
   `online` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -120,7 +139,10 @@ INSERT INTO `statistik` (`ip`, `tanggal`, `hits`, `online`) VALUES
 ('::1', '2022-04-19', 7, '1650376624'),
 ('::1', '2022-04-20', 3, '1650455848'),
 ('::1', '2022-04-25', 1, '1650890756'),
-('::1', '2022-05-10', 20, '1652180501');
+('::1', '2022-05-10', 20, '1652180501'),
+('127.0.0.1', '2022-06-11', 14, '1654967236'),
+('127.0.0.1', '2022-06-12', 44, '1654994066'),
+('127.0.0.1', '2022-06-13', 4, '1655079222');
 
 -- --------------------------------------------------------
 
@@ -131,8 +153,8 @@ INSERT INTO `statistik` (`ip`, `tanggal`, `hits`, `online`) VALUES
 CREATE TABLE `tbl_agenda` (
   `agenda_id` int(11) NOT NULL,
   `agenda_nama` varchar(200) DEFAULT NULL,
-  `agenda_tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `agenda_deskripsi` text,
+  `agenda_tanggal` timestamp NULL DEFAULT current_timestamp(),
+  `agenda_deskripsi` text DEFAULT NULL,
   `agenda_mulai` date DEFAULT NULL,
   `agenda_selesai` date DEFAULT NULL,
   `agenda_tempat` varchar(90) DEFAULT NULL,
@@ -159,10 +181,10 @@ INSERT INTO `tbl_agenda` (`agenda_id`, `agenda_nama`, `agenda_tanggal`, `agenda_
 CREATE TABLE `tbl_album` (
   `album_id` int(11) NOT NULL,
   `album_nama` varchar(50) DEFAULT NULL,
-  `album_tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `album_tanggal` timestamp NULL DEFAULT current_timestamp(),
   `album_pengguna_id` int(11) DEFAULT NULL,
   `album_author` varchar(60) DEFAULT NULL,
-  `album_count` int(11) DEFAULT '0',
+  `album_count` int(11) DEFAULT 0,
   `album_cover` varchar(40) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -226,10 +248,10 @@ CREATE TABLE `tbl_ektp` (
 CREATE TABLE `tbl_files` (
   `file_id` int(11) NOT NULL,
   `file_judul` varchar(120) DEFAULT NULL,
-  `file_deskripsi` text,
-  `file_tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `file_deskripsi` text DEFAULT NULL,
+  `file_tanggal` timestamp NULL DEFAULT current_timestamp(),
   `file_oleh` varchar(60) DEFAULT NULL,
-  `file_download` int(11) DEFAULT '0',
+  `file_download` int(11) DEFAULT 0,
   `file_data` varchar(120) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -249,7 +271,7 @@ INSERT INTO `tbl_files` (`file_id`, `file_judul`, `file_deskripsi`, `file_tangga
 CREATE TABLE `tbl_galeri` (
   `galeri_id` int(11) NOT NULL,
   `galeri_judul` varchar(60) DEFAULT NULL,
-  `galeri_tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `galeri_tanggal` timestamp NULL DEFAULT current_timestamp(),
   `galeri_gambar` varchar(40) DEFAULT NULL,
   `galeri_album_id` int(11) DEFAULT NULL,
   `galeri_pengguna_id` int(11) DEFAULT NULL,
@@ -286,7 +308,7 @@ CREATE TABLE `tbl_guru` (
   `guru_tgl_lahir` varchar(80) DEFAULT NULL,
   `guru_mapel` varchar(120) DEFAULT NULL,
   `guru_photo` varchar(40) DEFAULT NULL,
-  `guru_tgl_input` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `guru_tgl_input` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -329,9 +351,9 @@ CREATE TABLE `tbl_inbox` (
   `inbox_nama` varchar(40) DEFAULT NULL,
   `inbox_email` varchar(60) DEFAULT NULL,
   `inbox_kontak` varchar(20) DEFAULT NULL,
-  `inbox_pesan` text,
-  `inbox_tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `inbox_status` int(11) DEFAULT '1' COMMENT '1=Belum dilihat, 0=Telah dilihat'
+  `inbox_pesan` text DEFAULT NULL,
+  `inbox_tanggal` timestamp NULL DEFAULT current_timestamp(),
+  `inbox_status` int(11) DEFAULT 1 COMMENT '1=Belum dilihat, 0=Telah dilihat'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -343,7 +365,7 @@ CREATE TABLE `tbl_inbox` (
 CREATE TABLE `tbl_kategori` (
   `kategori_id` int(11) NOT NULL,
   `kategori_nama` varchar(30) DEFAULT NULL,
-  `kategori_tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `kategori_tanggal` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -410,10 +432,10 @@ CREATE TABLE `tbl_komentar` (
   `komentar_nama` varchar(30) DEFAULT NULL,
   `komentar_email` varchar(50) DEFAULT NULL,
   `komentar_isi` varchar(120) DEFAULT NULL,
-  `komentar_tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `komentar_tanggal` timestamp NULL DEFAULT current_timestamp(),
   `komentar_status` varchar(2) DEFAULT NULL,
   `komentar_tulisan_id` int(11) DEFAULT NULL,
-  `komentar_parent` int(11) DEFAULT '0'
+  `komentar_parent` int(11) DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -460,11 +482,11 @@ INSERT INTO `tbl_layanan` (`layanan_id`, `layanan_judul`, `layanan_pemohon`, `la
 
 CREATE TABLE `tbl_log_aktivitas` (
   `log_id` int(11) NOT NULL,
-  `log_nama` text,
-  `log_tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `log_nama` text DEFAULT NULL,
+  `log_tanggal` timestamp NULL DEFAULT current_timestamp(),
   `log_ip` varchar(20) DEFAULT NULL,
   `log_pengguna_id` int(11) DEFAULT NULL,
-  `log_icon` blob,
+  `log_icon` blob DEFAULT NULL,
   `log_jenis_icon` varchar(50) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -567,16 +589,16 @@ CREATE TABLE `tbl_pengguna` (
   `pengguna_jenkel` varchar(2) DEFAULT NULL,
   `pengguna_username` varchar(30) DEFAULT NULL,
   `pengguna_password` varchar(35) DEFAULT NULL,
-  `pengguna_tentang` text,
+  `pengguna_tentang` text DEFAULT NULL,
   `pengguna_email` varchar(50) DEFAULT NULL,
   `pengguna_nohp` varchar(20) DEFAULT NULL,
   `pengguna_facebook` varchar(35) DEFAULT NULL,
   `pengguna_twitter` varchar(35) DEFAULT NULL,
   `pengguna_linkdin` varchar(35) DEFAULT NULL,
   `pengguna_google_plus` varchar(35) DEFAULT NULL,
-  `pengguna_status` int(2) DEFAULT '1',
+  `pengguna_status` int(2) DEFAULT 1,
   `pengguna_level` varchar(3) DEFAULT NULL,
-  `pengguna_register` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `pengguna_register` timestamp NULL DEFAULT current_timestamp(),
   `pengguna_photo` varchar(40) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -596,8 +618,8 @@ INSERT INTO `tbl_pengguna` (`pengguna_id`, `pengguna_nama`, `pengguna_moto`, `pe
 CREATE TABLE `tbl_pengumuman` (
   `pengumuman_id` int(11) NOT NULL,
   `pengumuman_judul` varchar(150) DEFAULT NULL,
-  `pengumuman_deskripsi` text,
-  `pengumuman_tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `pengumuman_deskripsi` text DEFAULT NULL,
+  `pengumuman_tanggal` timestamp NULL DEFAULT current_timestamp(),
   `pengumuman_author` varchar(60) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -618,10 +640,10 @@ INSERT INTO `tbl_pengumuman` (`pengumuman_id`, `pengumuman_judul`, `pengumuman_d
 
 CREATE TABLE `tbl_pengunjung` (
   `pengunjung_id` int(11) NOT NULL,
-  `pengunjung_tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `pengunjung_tanggal` timestamp NULL DEFAULT current_timestamp(),
   `pengunjung_ip` varchar(40) DEFAULT NULL,
   `pengunjung_perangkat` varchar(100) DEFAULT NULL,
-  `hits` int(11) NOT NULL DEFAULT '1',
+  `hits` int(11) NOT NULL DEFAULT 1,
   `online` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -638,7 +660,10 @@ INSERT INTO `tbl_pengunjung` (`pengunjung_id`, `pengunjung_tanggal`, `pengunjung
 (1043, '2022-04-17 08:16:24', '::1', 'Chrome', 1, ''),
 (1044, '2022-04-18 07:00:25', '::1', 'Chrome', 1, ''),
 (1047, '2022-04-25 12:45:56', '::1', 'Chrome', 1, ''),
-(1048, '2022-05-10 08:27:48', '::1', 'Chrome', 1, '');
+(1048, '2022-05-10 08:27:48', '::1', 'Chrome', 1, ''),
+(1049, '2022-06-11 00:12:16', '127.0.0.1', 'Chrome', 1, ''),
+(1050, '2022-06-11 17:07:16', '127.0.0.1', 'Chrome', 1, ''),
+(1051, '2022-06-13 07:05:19', '127.0.0.1', 'Chrome', 1, '');
 
 -- --------------------------------------------------------
 
@@ -765,7 +790,7 @@ INSERT INTO `tbl_siswa` (`siswa_id`, `siswa_nis`, `siswa_nama`, `siswa_jenkel`, 
 CREATE TABLE `tbl_slider` (
   `slider_id` int(100) NOT NULL,
   `slider_judul` varchar(100) NOT NULL,
-  `slider_tanggal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `slider_tanggal` timestamp NOT NULL DEFAULT current_timestamp(),
   `slider_gambar` mediumtext NOT NULL,
   `active` tinyint(1) NOT NULL,
   `slider_album_id` int(100) NOT NULL,
@@ -802,15 +827,15 @@ INSERT INTO `tbl_sotk` (`sotk_id`, `sotk_judul`, `sotk_isi`, `sotk_gambar`) VALU
 CREATE TABLE `tbl_tulisan` (
   `tulisan_id` int(11) NOT NULL,
   `tulisan_judul` varchar(100) DEFAULT NULL,
-  `tulisan_isi` text,
-  `tulisan_tanggal` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `tulisan_isi` text DEFAULT NULL,
+  `tulisan_tanggal` timestamp NULL DEFAULT current_timestamp(),
   `tulisan_kategori_id` int(11) DEFAULT NULL,
   `tulisan_kategori_nama` varchar(30) DEFAULT NULL,
-  `tulisan_views` int(11) DEFAULT '0',
+  `tulisan_views` int(11) DEFAULT 0,
   `tulisan_gambar` varchar(40) DEFAULT NULL,
   `tulisan_pengguna_id` int(11) DEFAULT NULL,
   `tulisan_author` varchar(40) DEFAULT NULL,
-  `tulisan_img_slider` int(2) NOT NULL DEFAULT '0',
+  `tulisan_img_slider` int(2) NOT NULL DEFAULT 0,
   `tulisan_slug` varchar(200) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -1011,6 +1036,12 @@ INSERT INTO `user_tree_menu` (`id`, `menu_id`, `menu_tree`, `title`, `url`, `ico
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `antrian`
+--
+ALTER TABLE `antrian`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `keys`
@@ -1267,6 +1298,12 @@ ALTER TABLE `user_tree_menu`
 --
 
 --
+-- AUTO_INCREMENT for table `antrian`
+--
+ALTER TABLE `antrian`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `keys`
 --
 ALTER TABLE `keys`
@@ -1402,7 +1439,7 @@ ALTER TABLE `tbl_pengumuman`
 -- AUTO_INCREMENT for table `tbl_pengunjung`
 --
 ALTER TABLE `tbl_pengunjung`
-  MODIFY `pengunjung_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1049;
+  MODIFY `pengunjung_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1052;
 
 --
 -- AUTO_INCREMENT for table `tbl_peta`

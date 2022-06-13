@@ -1,19 +1,7 @@
 <?php
+
 class Antrian extends CI_Controller
 {
-    protected $data = [
-        'id' => '1',
-        'kode_antrian' => 'Avbuer7',
-        'nomor_antrian' => 001,
-        'nama_pasien' => 'Nova Adi Saputra',
-        'alamat_pasien' => 'Tegal',
-        'jenis_kelamin' => 'Laki-Laki',
-        'keluhan' => 'Batuk Berdahak',
-        'nomor_kis' => '29835725378098023',
-        'tanggal' => 20220615,
-        'status' => 0,
-        'created_at' => '2022 06 15 17',
-    ];
     public function index()
     {
         $this->form_validation->set_rules('nama_pasien', 'Nama Pasien', 'required');
