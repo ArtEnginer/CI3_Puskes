@@ -24,23 +24,47 @@ class Antrian extends CI_Controller
             $this->antrian->fill($this->input->post());
 
             $this->antrian->insert();
-            var_dump($this->antrian);
+            redirect('/antrian/ruangtunggu/' . $this->antrian->kode_antrian);
             die;
         }
     }
 
     public function kode()
     {
+        $data = [
+            'messages' => $this->session->flashdata(),
+        ];
         $this->form_validation->set_rules('kode_antrian', 'Kode Antrian', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/header');
-            $this->load->view('Antrian/kode');
+            $this->load->view('Antrian/kode', $data);
             $this->load->view('templates/footer');
         } else {
-            var_dump($this->input->post());
-            die;
-            redirect(base_url() . 'antrian/ruangtunggu/');
+            redirect('/antrian/ruangtunggu/' . $this->input->post('kode_antrian'));
+        }
+    }
+
+    public function ruangtunggu($code = null)
+    {
+        if ($code !== null) {
+            $query = $this->antrian->getRow($code);
+            if ($query) {
+                $data = [
+                    'pasien' => $query,
+                    'ngantri' => $this->antrian->countNgantri(),
+                    'ngantridone' => $this->antrian->countNgantriDone(),
+                ];
+                $this->load->view('templates/header');
+                $this->load->view('Antrian/Ruang_tunggu', $data);
+                $this->load->view('templates/footer');
+            } else {
+                $this->session->set_flashdata('antrian', 'Kode Antrian Tidak Valid');
+                redirect('/antrian/kode');
+            }
+        } else {
+            $this->session->set_flashdata('antrian', 'Kode Antrian Tidak Valid');
+            redirect('/antrian/kode');
         }
     }
 }

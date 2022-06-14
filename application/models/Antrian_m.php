@@ -29,6 +29,33 @@ class Antrian_m extends CI_Model
         }
     }
 
+    public function getAll()
+    {
+        $this->db->select('*');
+        $this->db->from('antrian');
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function getAllNow()
+    {
+        $this->db->select('*');
+        $this->db->from('antrian');
+        $this->db->like('tanggal', date('Y-m'));
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function getRow($code)
+    {
+        $this->db->select('*');
+        $this->db->from('antrian');
+        $this->db->where('kode_antrian', $code);
+        $this->db->like('tanggal', date('Y-m'));
+        $query = $this->db->get();
+        return $query->result_object()[0];
+    }
+
     public function insert()
     {
         $this->inisiasi();
@@ -87,5 +114,52 @@ class Antrian_m extends CI_Model
         } else {
             $this->status = 0;
         }
+    }
+
+    public function getStatus($code)
+    {
+        switch ($code) {
+            case 0:
+                return [
+                    'message' => 'Dalam Antrian',
+                    'style' => 'Red',
+                ];
+                break;
+            case 1:
+                return [
+                    'message' => 'Sedang Dilayani',
+                    'style' => 'Orange',
+                ];
+                break;
+            case 4:
+                return [
+                    'message' => 'Selesai',
+                    'style' => 'Green',
+                ];
+                break;
+            default:
+                return [
+                    'message' => 'Error',
+                    'style' => 'Red',
+                ];
+                break;
+        }
+    }
+
+    public function countNgantri()
+    {
+        $this->db->select('*');
+        $this->db->from('antrian');
+        $this->db->like('tanggal', date('Y-m'));
+        return $this->db->count_all_results();
+    }
+
+    public function countNgantriDone()
+    {
+        $this->db->select('*');
+        $this->db->from('antrian');
+        $this->db->like('tanggal', date('Y-m'));
+        $this->db->where('status', 4);
+        return $this->db->count_all_results();
     }
 }

@@ -5,6 +5,17 @@
             <p>Belum Punya Nomor Antrian ? <a href="<?= base_url() ?>antrian">Ambil Nomor Antrian</a></p>
         </div>
     </div>
+    <?php if ($messages) : ?>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="alert alert-danger" role="alert">
+                <?php foreach ($messages as $msg) : ?>
+                <p><?= $msg ?></p>
+                <?php endforeach ?>
+            </div>
+        </div>
+    </div>
+    <?php endif ?>
     <div class="row justify-content-center">
         <div class="col-md-6">
             <?= validation_errors('<div class="alert alert-danger" role="alert">', '</div>') ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 13, 2022 at 02:23 AM
+-- Generation Time: Jun 14, 2022 at 03:32 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -28,18 +28,25 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `antrian` (
-  `id` int(11) NOT NULL,
-  `kode_antrian` varchar(32) NOT NULL,
-  `nomot_antrian` int(8) NOT NULL,
-  `nama_pasien` varchar(64) NOT NULL,
-  `alamat_pasien` text NOT NULL,
-  `jenis_kelamin` varchar(16) NOT NULL,
-  `keluhan` text NOT NULL,
-  `nomor_kis` int(32) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
+  `kode_antrian` varchar(32) DEFAULT NULL,
+  `nomor_antrian` varchar(8) DEFAULT NULL,
+  `nama_pasien` varchar(64) DEFAULT NULL,
+  `alamat_pasien` text DEFAULT NULL,
+  `jenis_kelamin` varchar(16) DEFAULT NULL,
+  `keluhan` text DEFAULT NULL,
+  `nomor_kis` int(32) UNSIGNED DEFAULT NULL,
   `tanggal` date NOT NULL DEFAULT current_timestamp(),
-  `status` int(11) NOT NULL,
+  `status` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `antrian`
+--
+
+INSERT INTO `antrian` (`id`, `kode_antrian`, `nomor_antrian`, `nama_pasien`, `alamat_pasien`, `jenis_kelamin`, `keluhan`, `nomor_kis`, `tanggal`, `status`, `created_at`) VALUES
+(1, '41BCD4A6', '001', 'Nova Adi Saputra', 'Tegal', 'Laki-Laki', 'Sakit Hati', 523523632, '2022-06-14', 0, '2022-06-14 00:52:30');
 
 -- --------------------------------------------------------
 
@@ -142,7 +149,8 @@ INSERT INTO `statistik` (`ip`, `tanggal`, `hits`, `online`) VALUES
 ('::1', '2022-05-10', 20, '1652180501'),
 ('127.0.0.1', '2022-06-11', 14, '1654967236'),
 ('127.0.0.1', '2022-06-12', 44, '1654994066'),
-('127.0.0.1', '2022-06-13', 4, '1655079222');
+('127.0.0.1', '2022-06-13', 4, '1655079222'),
+('127.0.0.1', '2022-06-14', 2, '1655139807');
 
 -- --------------------------------------------------------
 
@@ -663,7 +671,8 @@ INSERT INTO `tbl_pengunjung` (`pengunjung_id`, `pengunjung_tanggal`, `pengunjung
 (1048, '2022-05-10 08:27:48', '::1', 'Chrome', 1, ''),
 (1049, '2022-06-11 00:12:16', '127.0.0.1', 'Chrome', 1, ''),
 (1050, '2022-06-11 17:07:16', '127.0.0.1', 'Chrome', 1, ''),
-(1051, '2022-06-13 07:05:19', '127.0.0.1', 'Chrome', 1, '');
+(1051, '2022-06-13 07:05:19', '127.0.0.1', 'Chrome', 1, ''),
+(1052, '2022-06-13 17:03:26', '127.0.0.1', 'Chrome', 1, '');
 
 -- --------------------------------------------------------
 
@@ -1000,7 +1009,8 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `subtitle`, `url`, `icon`
 (13, 10, 'Data Pengumuman', '', 'adminkantor/pengumuman', 'fa fa-fw fa-bullhorn', 1),
 (14, 10, 'Data Agenda', '', 'adminkantor/agenda', 'fa fa-fw fa-book', 1),
 (16, 9, 'Data Kategori Berita', '', 'superadmin/kategori', 'fa fa-fw fa-check-square-o', 1),
-(17, 10, 'Data Nomor Penting', '', 'adminkantor/nopen', 'fa fa-fw fa-phone', 1);
+(17, 10, 'Data Nomor Penting', '', 'adminkantor/nopen', 'fa fa-fw fa-phone', 1),
+(20, 10, 'Data Pasien', 'Data Pasien', 'adminkantor/pasien', 'fa fa-fw fa-hospital-o', 1);
 
 -- --------------------------------------------------------
 
@@ -1301,7 +1311,7 @@ ALTER TABLE `user_tree_menu`
 -- AUTO_INCREMENT for table `antrian`
 --
 ALTER TABLE `antrian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `keys`
@@ -1439,7 +1449,7 @@ ALTER TABLE `tbl_pengumuman`
 -- AUTO_INCREMENT for table `tbl_pengunjung`
 --
 ALTER TABLE `tbl_pengunjung`
-  MODIFY `pengunjung_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1052;
+  MODIFY `pengunjung_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1053;
 
 --
 -- AUTO_INCREMENT for table `tbl_peta`
@@ -1535,7 +1545,7 @@ ALTER TABLE `user_ss_menu`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `user_tree_menu`
