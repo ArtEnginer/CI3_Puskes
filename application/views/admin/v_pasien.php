@@ -31,14 +31,14 @@
 
         <!--Header-->
         <?php
-    $this->load->view('admin/v_header');
-    ?>
+        $this->load->view('admin/v_header');
+        ?>
 
         <!-- sidebar -->
 
         <?php
-    $this->load->view('admin/v_sideadmin');
-    ?>
+        $this->load->view('admin/v_sideadmin');
+        ?>
 
 
         <!-- Content Wrapper. Contains page content -->
@@ -63,8 +63,8 @@
 
                             <div class="box">
                                 <div class="box-header">
-                                    <a class="btn btn-success btn-flat" data-toggle="modal" data-target="#myModal"><span
-                                            class="fa fa-plus"></span> Add Data</a>
+                                    <a class="btn btn-success btn-flat btn-add"><span class="fa fa-plus"></span> Add
+                                        Data</a>
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
@@ -72,6 +72,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Nomor</th>
+                                                <th>Kode</th>
                                                 <th>Nama</th>
                                                 <th>Alamat</th>
                                                 <th>Jenis Kelamin</th>
@@ -81,12 +82,13 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                      $no = 0;
-                      foreach ($data->result_object() as $i) :
+                                            $no = 0;
+                                            foreach ($data->result_object() as $i) :
 
-                      ?>
+                                            ?>
                                             <tr>
                                                 <td><?= $i->nomor_antrian ?></td>
+                                                <td><?= $i->kode_antrian ?></td>
                                                 <td><?= $i->nama_pasien ?></td>
                                                 <td><?= $i->alamat_pasien ?></td>
                                                 <td><?= $i->jenis_kelamin ?></td>
@@ -94,11 +96,9 @@
                                                         style="background-color: <?= $model->getStatus($i->status)['style'] ?>;"><?= $model->getStatus($i->status)['message'] ?></a>
                                                 </td>
                                                 <td style="text-align:right;">
-                                                    <a class="btn" data-toggle="modal"
-                                                        data-target="#ModalEdit<?= $i->id; ?>"><span
+                                                    <a class="btn btn-ubah" data-id="<?= $i->id; ?>"><span
                                                             class="fa fa-pencil"></span></a>
-                                                    <a class="btn" data-toggle="modal"
-                                                        data-target="#ModalHapus<?= $i->id; ?>"><span
+                                                    <a class="btn btn-hapus" data-id="<?= $i->id; ?>"><span
                                                             class="fa fa-trash"></span></a>
                                                 </td>
                                             </tr>
@@ -167,6 +167,33 @@
             'body': $('.modal .modal-body'),
             'submit': $('.modal .btn-submit'),
         };
+
+        const formPrimary =
+            `<form class="form-horizontal"><div class="form-group"><label for="nama_pasien" class="col-sm-4 control-label">Nama Pasien</label><div class="col-sm-7"><input type="text" name="nama_pasien" class="form-control" id="nama_pasien" placeholder="Nama Pasien" required></div></div><div class="form-group"><label for="alamat_pasien" class="col-sm-4 control-label">Alamat</label><div class="col-sm-7"><textarea class="form-control" rows="3" name="alamat_pasien" id="alamat_pasien" placeholder="Alamat ..." required></textarea></div></div><div class="form-group"><label for="jenis_kelamin" class="col-sm-4 control-label">Jenis Kelamin</label><div class="col-sm-7 d-flex align-items-center"><div class="form-check form-check-inline ml-4"><input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin_lk" value="Laki-Laki" required> Laki-Laki</div><div class="form-check form-check-inline ml-4"><input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin_pr" value="Perempuan"> Perempuan</div></div></div><div class="form-group"><label for="keluhan" class="col-sm-4 control-label">Keluhan</label><div class="col-sm-7"><textarea class="form-control" rows="3" name="keluhan" id="keluhan" placeholder="Ceritakan Keluhan Anda ..." required></textarea></div></div><div class="form-group"><label for="nomor_kis" class="col-sm-4 control-label">Nomor KIS</label><div class="col-sm-7"><input type="number" name="nomor_kis" class="form-control" id="nomor_kis" placeholder="Nomor KIS" required></div></div></form>`;
+
+        $(document).ready(function() {
+            $('.btn-add').click(function(e) {
+                e.preventDefault();
+                modal.title.text('Tambah Pasien Baru');
+                modal.body.html(formPrimary);
+                modal.submit.text('Tambahkan');
+                $('#myModal').modal('show');
+            });
+            $('.btn-ubah').click(function(e) {
+                e.preventDefault();
+                modal.title.text('Ubah Data Pasien');
+                modal.body.html(formPrimary);
+                modal.submit.text('Simpan');
+                $('#myModal').modal('show');
+            });
+            $('.btn-hapus').click(function(e) {
+                e.preventDefault();
+                modal.title.text('Hapus Data Pasien');
+                modal.body.html('<p>Apakah anda yakin untuk menghapus data pasien ini ?</p>');
+                modal.submit.text('Hapus');
+                $('#myModal').modal('show');
+            });
+        });
         </script>
 </body>
 
