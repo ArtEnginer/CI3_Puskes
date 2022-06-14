@@ -6,6 +6,7 @@ class Pasien extends CI_Controller
 		parent::__construct();
 		is_logged_in();
 
+		$this->load->database();
 		$this->load->model('Antrian_m', 'antrian');
 	}
 
@@ -17,114 +18,79 @@ class Pasien extends CI_Controller
 		$this->load->view('admin/v_pasien', $x);
 	}
 
-	// function simpan_siswa()
-	// {
-	// 	$config['upload_path'] = './assets/images/'; //path folder
-	// 	$config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang dapat diakses bisa anda sesuaikan
-	// 	$config['encrypt_name'] = TRUE; //nama yang terupload nantinya
+	function get($id = 0)
+	{
+		if (!empty($id)) {
+			$data = $this->db->get_where("antrian", ['id' => $id])->row_array();
+		} else {
+			$data = $this->db->get("antrian")->result();
+		}
+		if ($data) {
+			echo json_encode([
+				'status' => 200,
+				'data'   => $data
+			]);
+		} else {
+			$this->antrian->fill($this->input->post());
+			$this->antrian->insert();
+			echo json_encode([
+				'status' => 400,
+				'message'   => 'Data tidak ditemukan'
+			]);
+		}
+	}
 
-	// 	$this->upload->initialize($config);
-	// 	if (!empty($_FILES['filefoto']['name'])) {
-	// 		if ($this->upload->do_upload('filefoto')) {
-	// 			$gbr = $this->upload->data();
-	// 			//Compress Image
-	// 			$config['image_library'] = 'gd2';
-	// 			$config['source_image'] = './assets/images/' . $gbr['file_name'];
-	// 			$config['create_thumb'] = FALSE;
-	// 			$config['maintain_ratio'] = FALSE;
-	// 			$config['quality'] = '60%';
-	// 			$config['width'] = 300;
-	// 			$config['height'] = 300;
-	// 			$config['new_image'] = './assets/images/' . $gbr['file_name'];
-	// 			$this->load->library('image_lib', $config);
-	// 			$this->image_lib->resize();
+	function add()
+	{
+		$this->form_validation->set_rules('nama_pasien', 'Nama Pasien', 'required');
+		$this->form_validation->set_rules('alamat_pasien', 'Alamat Pasien', 'required');
+		$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required');
+		$this->form_validation->set_rules('keluhan', 'Keluhan Penyakit', 'required');
+		$this->form_validation->set_rules('nomor_kis', 'Nomor KIS', 'required');
 
-	// 			$photo = $gbr['file_name'];
-	// 			$nis = strip_tags($this->input->post('xnis'));
-	// 			$nama = strip_tags($this->input->post('xnama'));
-	// 			$jenkel = strip_tags($this->input->post('xjenkel'));
-	// 			$kelas = strip_tags($this->input->post('xkelas'));
+		if ($this->form_validation->run() == FALSE) {
+			echo json_encode([
+				'status' => 400,
+				'message'   => $this->form_validation->error_array()
+			]);
+		} else {
+			$this->antrian->fill($this->input->post());
+			$this->antrian->insert();
+			echo json_encode([
+				'status' => 201,
+				'data'   => $this->antrian
+			]);
+		}
+	}
 
-	// 			$this->m_siswa->simpan_siswa($nis, $nama, $jenkel, $kelas, $photo);
-	// 			echo $this->session->set_flashdata('msg', 'success');
-	// 			redirect('adminkantor/siswa');
-	// 		} else {
-	// 			echo $this->session->set_flashdata('msg', 'warning');
-	// 			redirect('adminkantor/siswa');
-	// 		}
-	// 	} else {
-	// 		$nis = strip_tags($this->input->post('xnis'));
-	// 		$nama = strip_tags($this->input->post('xnama'));
-	// 		$jenkel = strip_tags($this->input->post('xjenkel'));
-	// 		$kelas = strip_tags($this->input->post('xkelas'));
+	function edit($id)
+	{
+		$this->form_validation->set_rules('nama_pasien', 'Nama Pasien', 'required');
+		$this->form_validation->set_rules('alamat_pasien', 'Alamat Pasien', 'required');
+		$this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required');
+		$this->form_validation->set_rules('keluhan', 'Keluhan Penyakit', 'required');
+		$this->form_validation->set_rules('nomor_kis', 'Nomor KIS', 'required');
 
-	// 		$this->m_siswa->simpan_siswa_tanpa_img($nis, $nama, $jenkel, $kelas);
-	// 		echo $this->session->set_flashdata('msg', 'success');
-	// 		redirect('adminkantor/siswa');
-	// 	}
-	// }
+		if ($this->form_validation->run() == FALSE) {
+			echo json_encode([
+				'status' => 400,
+				'message'   => $this->form_validation->error_array()
+			]);
+		} else {
+			$this->antrian->update($id, $this->input->post());
+			echo json_encode([
+				'status' => 200,
+				'data'   => $this->antrian
+			]);
+		}
+	}
 
-	// function update_siswa()
-	// {
-
-	// 	$config['upload_path'] = './assets/images/'; //path folder
-	// 	$config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang dapat diakses bisa anda sesuaikan
-	// 	$config['encrypt_name'] = TRUE; //nama yang terupload nantinya
-
-	// 	$this->upload->initialize($config);
-	// 	if (!empty($_FILES['filefoto']['name'])) {
-	// 		if ($this->upload->do_upload('filefoto')) {
-	// 			$gbr = $this->upload->data();
-	// 			//Compress Image
-	// 			$config['image_library'] = 'gd2';
-	// 			$config['source_image'] = './assets/images/' . $gbr['file_name'];
-	// 			$config['create_thumb'] = FALSE;
-	// 			$config['maintain_ratio'] = FALSE;
-	// 			$config['quality'] = '60%';
-	// 			$config['width'] = 300;
-	// 			$config['height'] = 300;
-	// 			$config['new_image'] = './assets/images/' . $gbr['file_name'];
-	// 			$this->load->library('image_lib', $config);
-	// 			$this->image_lib->resize();
-	// 			$gambar = $this->input->post('gambar');
-	// 			$path = './assets/images/' . $gambar;
-	// 			unlink($path);
-
-	// 			$photo = $gbr['file_name'];
-	// 			$kode = $this->input->post('kode');
-	// 			$nis = strip_tags($this->input->post('xnis'));
-	// 			$nama = strip_tags($this->input->post('xnama'));
-	// 			$jenkel = strip_tags($this->input->post('xjenkel'));
-	// 			$kelas = strip_tags($this->input->post('xkelas'));
-
-	// 			$this->m_siswa->update_siswa($kode, $nis, $nama, $jenkel, $kelas, $photo);
-	// 			echo $this->session->set_flashdata('msg', 'info');
-	// 			redirect('adminkantor/siswa');
-	// 		} else {
-	// 			echo $this->session->set_flashdata('msg', 'warning');
-	// 			redirect('adminkantor/siswa');
-	// 		}
-	// 	} else {
-	// 		$kode = $this->input->post('kode');
-	// 		$nis = strip_tags($this->input->post('xnis'));
-	// 		$nama = strip_tags($this->input->post('xnama'));
-	// 		$jenkel = strip_tags($this->input->post('xjenkel'));
-	// 		$kelas = strip_tags($this->input->post('xkelas'));
-
-	// 		$this->m_siswa->update_siswa_tanpa_img($kode, $nis, $nama, $jenkel, $kelas);
-	// 		echo $this->session->set_flashdata('msg', 'info');
-	// 		redirect('adminkantor/siswa');
-	// 	}
-	// }
-
-	// function hapus_siswa()
-	// {
-	// 	$kode = $this->input->post('kode');
-	// 	$gambar = $this->input->post('gambar');
-	// 	$path = './assets/images/' . $gambar;
-	// 	unlink($path);
-	// 	$this->m_siswa->hapus_siswa($kode);
-	// 	echo $this->session->set_flashdata('msg', 'success-hapus');
-	// 	redirect('adminkantor/siswa');
-	// }
+	function delete($id)
+	{
+		$this->antrian->delete($id);
+		echo json_encode([
+			'status' => 200,
+			'message'   => 'Berhasil Menghapus data'
+		]);
+	}
 }

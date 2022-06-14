@@ -160,8 +160,11 @@
         <script src="<?php echo base_url() . 'assets/dist/js/demo.js' ?>"></script>
         <script type="text/javascript" src="<?php echo base_url() . 'assets/plugins/toast/jquery.toast.min.js' ?>">
         </script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>
+        const base_url = "<?= base_url() ?>";
+        let id = 0;
         const modal = {
             'title': $('.modal-title'),
             'body': $('.modal .modal-body'),
@@ -169,27 +172,150 @@
         };
 
         const formPrimary =
-            `<form class="form-horizontal"><div class="form-group"><label for="nama_pasien" class="col-sm-4 control-label">Nama Pasien</label><div class="col-sm-7"><input type="text" name="nama_pasien" class="form-control" id="nama_pasien" placeholder="Nama Pasien" required></div></div><div class="form-group"><label for="alamat_pasien" class="col-sm-4 control-label">Alamat</label><div class="col-sm-7"><textarea class="form-control" rows="3" name="alamat_pasien" id="alamat_pasien" placeholder="Alamat ..." required></textarea></div></div><div class="form-group"><label for="jenis_kelamin" class="col-sm-4 control-label">Jenis Kelamin</label><div class="col-sm-7 d-flex align-items-center"><div class="form-check form-check-inline ml-4"><input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin_lk" value="Laki-Laki" required> Laki-Laki</div><div class="form-check form-check-inline ml-4"><input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin_pr" value="Perempuan"> Perempuan</div></div></div><div class="form-group"><label for="keluhan" class="col-sm-4 control-label">Keluhan</label><div class="col-sm-7"><textarea class="form-control" rows="3" name="keluhan" id="keluhan" placeholder="Ceritakan Keluhan Anda ..." required></textarea></div></div><div class="form-group"><label for="nomor_kis" class="col-sm-4 control-label">Nomor KIS</label><div class="col-sm-7"><input type="number" name="nomor_kis" class="form-control" id="nomor_kis" placeholder="Nomor KIS" required></div></div></form>`;
+            `<form class="form-horizontal" id="formKu"><div class="form-group"><label for="nama_pasien" class="col-sm-4 control-label">Nama Pasien</label><div class="col-sm-7"><input type="text" name="nama_pasien" class="form-control" id="nama_pasien" placeholder="Nama Pasien" required></div></div><div class="form-group"><label for="alamat_pasien" class="col-sm-4 control-label">Alamat</label><div class="col-sm-7"><textarea class="form-control" rows="3" name="alamat_pasien" id="alamat_pasien" placeholder="Alamat ..." required></textarea></div></div><div class="form-group"><label for="jenis_kelamin" class="col-sm-4 control-label">Jenis Kelamin</label><div class="col-sm-7 d-flex align-items-center"><div class="form-check form-check-inline ml-4"><input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin_lk" value="Laki-Laki" required> Laki-Laki</div><div class="form-check form-check-inline ml-4"><input class="form-check-input" type="radio" name="jenis_kelamin" id="jenis_kelamin_pr" value="Perempuan"> Perempuan</div></div></div><div class="form-group"><label for="keluhan" class="col-sm-4 control-label">Keluhan</label><div class="col-sm-7"><textarea class="form-control" rows="3" name="keluhan" id="keluhan" placeholder="Ceritakan Keluhan Anda ..." required></textarea></div></div><div class="form-group"><label for="nomor_kis" class="col-sm-4 control-label">Nomor KIS</label><div class="col-sm-7"><input type="number" name="nomor_kis" class="form-control" id="nomor_kis" placeholder="Nomor KIS" required></div></div></form>`;
 
         $(document).ready(function() {
-            $('.btn-add').click(function(e) {
-                e.preventDefault();
+            $(document).on('click', '#btn-add', function() {
+                $.ajax({
+                    type: "POST",
+                    url: `${base_url}adminkantor/pasien/add`,
+                    data: $('#formKu').serializeArray(),
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status == 400) {
+                            Object.keys(response.message).forEach(function(key) {
+                                $.toast({
+                                    heading: 'Error',
+                                    text: response.message[key],
+                                    showHideTransition: 'fade',
+                                    icon: 'error'
+                                })
+                                // console.log(key, response.message[key]);
+                            });
+                        }
+                        if (response.status == 201) {
+                            $('#myModal').modal('hide');
+                            $.toast({
+                                heading: 'Success',
+                                text: 'Data baru berhasil ditambahkan',
+                                showHideTransition: 'slide',
+                                icon: 'success'
+                            })
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000);
+                        }
+                    }
+                });
+            });
+            $(document).on('click', '#btn-edit', function() {
+                $.ajax({
+                    type: "POST",
+                    url: `${base_url}adminkantor/pasien/edit/${id}`,
+                    data: $('#formKu').serializeArray(),
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status == 400) {
+                            Object.keys(response.message).forEach(function(key) {
+                                $.toast({
+                                    heading: 'Error',
+                                    text: response.message[key],
+                                    showHideTransition: 'fade',
+                                    icon: 'error'
+                                })
+                                // console.log(key, response.message[key]);
+                            });
+                        }
+                        if (response.status == 200) {
+                            $('#myModal').modal('hide');
+                            $.toast({
+                                heading: 'Success',
+                                text: 'Data berhasil diedit',
+                                showHideTransition: 'slide',
+                                icon: 'success'
+                            })
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000);
+                        }
+                    }
+                });
+            });
+            $(document).on('click', '#btn-delete', function() {
+                $.ajax({
+                    type: "GET",
+                    url: `${base_url}adminkantor/pasien/delete/${id}`,
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status == 400) {
+                            $.toast({
+                                heading: 'Error',
+                                text: response.message,
+                                showHideTransition: 'fade',
+                                icon: 'error'
+                            })
+                        }
+                        if (response.status == 200) {
+                            $('#myModal').modal('hide');
+                            $.toast({
+                                heading: 'Success',
+                                text: response.message,
+                                showHideTransition: 'slide',
+                                icon: 'success'
+                            })
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000);
+                        }
+                    }
+                });
+            });
+            $(document).on('click', '.btn-add', function() {
                 modal.title.text('Tambah Pasien Baru');
                 modal.body.html(formPrimary);
+                modal.submit.attr("id", "btn-add");
                 modal.submit.text('Tambahkan');
                 $('#myModal').modal('show');
             });
-            $('.btn-ubah').click(function(e) {
-                e.preventDefault();
+            $(document).on('click', '.btn-ubah', function() {
+                id = $(this).data("id");
                 modal.title.text('Ubah Data Pasien');
                 modal.body.html(formPrimary);
+                modal.submit.attr("id", "btn-edit");
                 modal.submit.text('Simpan');
+                $.ajax({
+                    type: "GET",
+                    url: `${base_url}adminkantor/pasien/get/${id}`,
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status == 400) {
+                            $.toast({
+                                heading: 'Error',
+                                text: response.message,
+                                showHideTransition: 'fade',
+                                icon: 'error'
+                            })
+                        }
+                        if (response.status == 200) {
+                            Object.keys(response.data).forEach(function(key) {
+                                if (key == 'jenis_kelamin') {
+                                    $(`form [value="${response.data[
+                                        key]}"]`).attr('checked', true);
+                                } else {
+                                    $(`form [name="${key}"]`).val(response.data[
+                                        key]);
+                                }
+                            });
+                        }
+                    }
+                });
                 $('#myModal').modal('show');
             });
-            $('.btn-hapus').click(function(e) {
-                e.preventDefault();
+            $(document).on('click', '.btn-hapus', function() {
+                id = $(this).data("id");
                 modal.title.text('Hapus Data Pasien');
                 modal.body.html('<p>Apakah anda yakin untuk menghapus data pasien ini ?</p>');
+                modal.submit.attr("id", "btn-delete");
                 modal.submit.text('Hapus');
                 $('#myModal').modal('show');
             });

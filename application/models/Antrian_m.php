@@ -62,6 +62,16 @@ class Antrian_m extends CI_Model
         $this->db->insert('antrian', $this);
     }
 
+    public function update($id, $data)
+    {
+        $this->db->update('antrian', $data, array('id' => $id));
+    }
+
+    public function delete($id)
+    {
+        $this->db->delete('antrian', array('id' => $id));
+    }
+
     public function inisiasi()
     {
         $this->generateKodeAntrian();
