@@ -41,7 +41,7 @@ class Antrian_m extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('antrian');
-        $this->db->like('tanggal', date('Y-m'));
+        $this->db->like('tanggal', date('Y-m-d'));
         $query = $this->db->get();
         return $query;
     }
@@ -51,7 +51,7 @@ class Antrian_m extends CI_Model
         $this->db->select('*');
         $this->db->from('antrian');
         $this->db->where('kode_antrian', $code);
-        $this->db->like('tanggal', date('Y-m'));
+        $this->db->like('tanggal', date('Y-m-d'));
         $query = $this->db->get();
         return $query->result_object()[0];
     }
