@@ -93,4 +93,20 @@ class Pasien extends CI_Controller
 			'message'   => 'Berhasil Menghapus data'
 		]);
 	}
+	function layani($id)
+	{
+		$this->antrian->update($id, ['status' => 1]);
+		echo json_encode([
+			'status' => 200,
+			'message'   => 'Berhasil Mengubah status pasien'
+		]);
+	}
+	function selesai($id)
+	{
+		$this->antrian->update($id, ['status' => 4]);
+		echo json_encode([
+			'status' => 200,
+			'message'   => 'Berhasil Menyelesaikan Pelayanan Pasien'
+		]);
+	}
 }

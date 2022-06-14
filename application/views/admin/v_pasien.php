@@ -98,6 +98,15 @@
                                                 <td style="text-align:right;">
                                                     <a class="btn btn-ubah" data-id="<?= $i->id; ?>"><span
                                                             class="fa fa-pencil"></span></a>
+                                                    <?php if ($i->status == 0) : ?>
+                                                    <a class="btn btn-layani" data-id="<?= $i->id; ?>"><span
+                                                            class="fa fa-clock-o"></span></a>
+                                                    <?php elseif ($i->status == 1) : ?>
+                                                    <a class="btn btn-selesai" data-id="<?= $i->id; ?>"><span
+                                                            class="fa fa-check"></span></a>
+                                                    <?php else : ?>
+                                                    <a class="btn"><span class="fa fa-check-circle"></span></a>
+                                                    <?php endif ?>
                                                     <a class="btn btn-hapus" data-id="<?= $i->id; ?>"><span
                                                             class="fa fa-trash"></span></a>
                                                 </td>
@@ -270,6 +279,64 @@
                     }
                 });
             });
+            $(document).on('click', '#btn-layani', function() {
+                $.ajax({
+                    type: "GET",
+                    url: `${base_url}adminkantor/pasien/layani/${id}`,
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status == 400) {
+                            $.toast({
+                                heading: 'Error',
+                                text: response.message,
+                                showHideTransition: 'fade',
+                                icon: 'error'
+                            })
+                        }
+                        if (response.status == 200) {
+                            $('#myModal').modal('hide');
+                            $.toast({
+                                heading: 'Success',
+                                text: response.message,
+                                showHideTransition: 'slide',
+                                icon: 'success'
+                            })
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000);
+                        }
+                    }
+                });
+            });
+            $(document).on('click', '#btn-selesai', function() {
+                $.ajax({
+                    type: "GET",
+                    url: `${base_url}adminkantor/pasien/selesai/${id}`,
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.status == 400) {
+                            $.toast({
+                                heading: 'Error',
+                                text: response.message,
+                                showHideTransition: 'fade',
+                                icon: 'error'
+                            })
+                        }
+                        if (response.status == 200) {
+                            $('#myModal').modal('hide');
+                            $.toast({
+                                heading: 'Success',
+                                text: response.message,
+                                showHideTransition: 'slide',
+                                icon: 'success'
+                            })
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000);
+                        }
+                    }
+                });
+            });
             $(document).on('click', '.btn-add', function() {
                 modal.title.text('Tambah Pasien Baru');
                 modal.body.html(formPrimary);
@@ -317,6 +384,22 @@
                 modal.body.html('<p>Apakah anda yakin untuk menghapus data pasien ini ?</p>');
                 modal.submit.attr("id", "btn-delete");
                 modal.submit.text('Hapus');
+                $('#myModal').modal('show');
+            });
+            $(document).on('click', '.btn-layani', function() {
+                id = $(this).data("id");
+                modal.title.text('Layani Data Pasien');
+                modal.body.html('<p>Ubah status ini menjadi "Sedang Dilayani" ?</p>');
+                modal.submit.attr("id", "btn-layani");
+                modal.submit.text('Layani');
+                $('#myModal').modal('show');
+            });
+            $(document).on('click', '.btn-selesai', function() {
+                id = $(this).data("id");
+                modal.title.text('Selesai Pelayanan');
+                modal.body.html('<p>Selesaikan pelayanan pasien ini ?</p>');
+                modal.submit.attr("id", "btn-selesai");
+                modal.submit.text('Selesai');
                 $('#myModal').modal('show');
             });
         });
