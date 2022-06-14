@@ -82,7 +82,7 @@ class Antrian_m extends CI_Model
     public function generateNomorAntrian()
     {
         $this->db->select_max('nomor_antrian');
-        $this->db->like('created_at', date('Y-m'));
+        $this->db->like('created_at', date('Y-m-d'));
         $query = $this->db->get('antrian');
         if ($this->nomor_antrian === null) {
             if ($query->result_object()[0]->nomor_antrian) {
@@ -150,7 +150,7 @@ class Antrian_m extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('antrian');
-        $this->db->like('tanggal', date('Y-m'));
+        $this->db->like('tanggal', date('Y-m-d'));
         return $this->db->count_all_results();
     }
 
@@ -158,7 +158,7 @@ class Antrian_m extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('antrian');
-        $this->db->like('tanggal', date('Y-m'));
+        $this->db->like('tanggal', date('Y-m-d'));
         $this->db->where('status', 4);
         return $this->db->count_all_results();
     }
