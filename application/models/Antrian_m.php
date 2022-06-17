@@ -8,6 +8,7 @@ class Antrian_m extends CI_Model
     public $jenis_kelamin;
     public $keluhan;
     public $nomor_kis;
+    public $nomor_kk;
     public $tanggal;
     public $status;
     public $created_at;

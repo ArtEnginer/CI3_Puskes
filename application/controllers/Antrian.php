@@ -14,7 +14,14 @@ class Antrian extends CI_Controller
         $this->form_validation->set_rules('alamat_pasien', 'Alamat Pasien', 'required');
         $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required');
         $this->form_validation->set_rules('keluhan', 'Keluhan Penyakit', 'required');
-        $this->form_validation->set_rules('nomor_kis', 'Nomor KIS', 'required');
+        // validation nomor_kis not required, unique, and not empty
+        $this->form_validation->set_rules('nomor_kis', 'Nomor KIS', 'required|is_unique[antrian.nomor_kis]');
+
+
+        $this->form_validation->set_rules('nomor_kk', 'Nomor KK', 'required|is_unique[antrian.nomor_kk]');
+        // set message
+        $this->form_validation->set_message('is_unique', '%s sudah terdaftar hari ini, gunakan %s lain');
+        $this->form_validation->set_message('required', '%s harus diisi');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/header');
