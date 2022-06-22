@@ -1,14 +1,14 @@
 <script language="JavaScript">
-var txt = "UPT Puskesmas Tanah Abang ";
-var kecepatan = 450;
-var segarkan = null;
+    var txt = "UPT Puskesmas Tanah Abang ";
+    var kecepatan = 450;
+    var segarkan = null;
 
-function bergerak() {
-    document.title = txt;
-    txt = txt.substring(1, txt.length) + txt.charAt(0);
-    segarkan = setTimeout("bergerak()", kecepatan);
-}
-bergerak();
+    function bergerak() {
+        document.title = txt;
+        txt = txt.substring(1, txt.length) + txt.charAt(0);
+        segarkan = setTimeout("bergerak()", kecepatan);
+    }
+    bergerak();
 </script>
 
 <!-- jQuery Plugin -->
@@ -18,10 +18,10 @@ bergerak();
 
 <!-- Preloader -->
 <script type="text/javascript">
-$(window).load(function() {
-    $("#loading").fadeOut("slow");
+    $(window).load(function() {
+        $("#loading").fadeOut("slow");
 
-});
+    });
 </script>
 
 <div class="box" id="loading">
@@ -44,7 +44,7 @@ $(window).load(function() {
                 $all = $this->db->get('tbl_slider')->num_rows(); //jumlah data pada database
                 for ($no; $no <= $all; $no++) {
                 ?>
-                <li data-target="#carousel" data-slide-to="<?php echo $no ?>" class="<?php if ($no == 0) {
+                    <li data-target="#carousel" data-slide-to="<?php echo $no ?>" class="<?php if ($no == 0) {
                                                                                                 echo 'active';
                                                                                             } else {
                                                                                                 echo 'notactive';
@@ -59,37 +59,35 @@ $(window).load(function() {
 
                 <?php foreach ($slider->result() as $sl) : ?>
 
-                <?php if ($sl->active) { ?>
-                <div class="carousel-item active">
-                    <img class="d-block img-responsive"
-                        src="<?php echo base_url() . 'assets/images/' . $sl->slider_gambar; ?>">
-                    <div class="carousel-caption d-md-block ">
-                        <div class="slider_title">
-                            <h1></h1>
-                            <!-- <h4><br> <br> <?= $sl->slider_judul; ?>.</h4> -->
-                            <div class="slider-btn">
+                    <?php if ($sl->active) { ?>
+                        <div class="carousel-item active">
+                            <img class="d-block img-responsive" src="<?php echo base_url() . 'assets/images/' . $sl->slider_gambar; ?>">
+                            <div class="carousel-caption d-md-block ">
+                                <div class="slider_title">
+                                    <h1></h1>
+                                    <!-- <h4><br> <br> <?= $sl->slider_judul; ?>.</h4> -->
+                                    <div class="slider-btn">
 
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <?php } else { ?>
+                    <?php } else { ?>
 
-                <div class="carousel-item ">
-                    <img class="d-block img-responsive"
-                        src="<?php echo base_url() . 'assets/images/' . $sl->slider_gambar; ?>">
-                    <div class="carousel-caption d-md-block">
-                        <div class="slider_title">
-                            <h1></h1>
-                            <h4><br> <br> </h4>
-                            <div class="slider-btn">
+                        <div class="carousel-item ">
+                            <img class="d-block img-responsive" src="<?php echo base_url() . 'assets/images/' . $sl->slider_gambar; ?>">
+                            <div class="carousel-caption d-md-block">
+                                <div class="slider_title">
+                                    <h1></h1>
+                                    <h4><br> <br> </h4>
+                                    <div class="slider-btn">
 
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <?php } ?>
+                    <?php } ?>
                 <?php endforeach; ?>
             </div>
 
@@ -114,8 +112,7 @@ $(window).load(function() {
         <div class="row">
 
             <div class="col-md-4">
-                <img src="<?php echo base_url() . 'theme/images/puskes1.jpg' ?>" class="img-fluid about-img"
-                    alt="Kepala Puskes">
+                <img src="<?php echo base_url() . 'theme/images/puskes1.jpg' ?>" class="img-fluid about-img" alt="Kepala Puskes">
             </div>
 
 
@@ -149,59 +146,68 @@ $(window).load(function() {
 <section class="event">
 
     <div class="container">
+
         <div class="row">
             <div class="col-md-12">
-                <h2 style="text-align:center">Pengumuman | Agenda</h2>
+                <h2 style="text-align:center">Pengumuman</h2>
+            </div>
+        </div>
+
+        <div class="row">
+
+
+            <div class="event-img2">
+                <?php foreach ($pengumuman->result() as $row) : ?>
+                    <div class="blog-single-item">
+                        <div class="blog-img_block">
+                            <img src="<?php echo base_url() . 'assets/images/' . $row->tulisan_gambar; ?>" class="img-fluid" alt="blog-img">
+                            <div class="blog-date">
+                                <span><?php echo $row->tanggal; ?></span>
+                            </div>
+                        </div>
+                        <div class="blog-tiltle_block">
+                            <h4><a href="<?php echo site_url('artikel/' . $row->tulisan_slug); ?>"><?php echo $row->tulisan_judul; ?></a></h4>
+                            <h6> <a href="#"><i class="fa fa-user" aria-hidden="true"></i><span><?php echo $row->tulisan_author; ?></span> </a> | <a href="#"><i class="fa fa-tags" aria-hidden="true"></i><span><?php echo $row->tulisan_kategori_nama; ?></span></a></h6>
+                            <?php echo limit_words($row->tulisan_isi, 10) . '...'; ?>
+                            <div class="blog-icons">
+                                <div class="blog-share_block">
+                                    <a href="<?php echo site_url('artikel/' . $row->tulisan_slug); ?>">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
 
 
         <div class="row">
-            <div class="col-lg-6">
-
-                <div class="event-img2">
-                    <?php foreach ($pengumuman->result() as $row) : ?>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <img src="<?php echo base_url() . 'theme/images/announcement-icon.png' ?>"
-                                class="img-fluid">
-                        </div><!-- // end .col-sm-3 -->
-
-                        <div class="col-sm-9">
-                            <h3><a
-                                    href="<?php echo site_url('pengumuman'); ?>"><?php echo $row->pengumuman_judul; ?></a>
-                            </h3>
-                            <span><?php echo $row->tanggal; ?></span>
-                            <p><?php echo limit_words($row->pengumuman_deskripsi, 10) . '...'; ?></p>
-
-                        </div><!-- // end .col-sm-7 -->
-                    </div><!-- // end .row -->
-                    <?php endforeach; ?>
-                </div>
+            <div class="col-md-12">
+                <h2 style="text-align:center">Agenda</h2>
             </div>
+        </div>
 
-            <div class="col-lg-6">
-                <div class="row">
-                    <div class="col-md-12">
-                        <?php foreach ($agenda->result() as $row) : ?>
-                        <div class="event_date">
-                            <div class="event-date-wrap">
-                                <p><?php echo date("d", strtotime($row->agenda_tanggal)); ?></p>
-                                <span><?php echo date("M. y", strtotime($row->agenda_tanggal)); ?></span>
-                            </div>
+        <div class="row">
+            <div class="col-md-12">
+                <?php foreach ($agenda->result() as $row) : ?>
+                    <div class="event_date">
+                        <div class="event-date-wrap">
+                            <p><?php echo date("d", strtotime($row->agenda_tanggal)); ?></p>
+                            <span><?php echo date("M. y", strtotime($row->agenda_tanggal)); ?></span>
                         </div>
-                        <div class="date-description">
-                            <h3><a href="<?php echo site_url('agenda'); ?>"><?php echo $row->agenda_nama; ?></a></h3>
-                            <p><?php echo limit_words($row->agenda_deskripsi, 10) . '...'; ?></p>
-                            <hr class="event_line">
-                        </div>
-                        <?php endforeach; ?>
-
                     </div>
-                </div>
+                    <div class="date-description">
+                        <h3><a href="<?php echo site_url('agenda'); ?>"><?php echo $row->agenda_nama; ?></a></h3>
+                        <p><?php echo limit_words($row->agenda_deskripsi, 10) . '...'; ?></p>
+                        <hr class="event_line">
+                    </div>
+                <?php endforeach; ?>
 
             </div>
         </div>
+
+
+    </div>
     </div>
 </section>
 <!--//END EVENTS -->
@@ -325,8 +331,7 @@ $(window).load(function() {
                 <br>
                 <div>
                     <a href="https://dinkes.mubakab.go.id/" target="blank">
-                        <img src="<?php echo base_url() . 'theme/images/th.jpg' ?>" width="50px;" class="img-fluid"
-                            alt="">
+                        <img src="<?php echo base_url() . 'theme/images/th.jpg' ?>" width="50px;" class="img-fluid" alt="">
                         &nbsp;
                         <a href="https://dinkes.mubakab.go.id/" target="blank" style="color :green;">Dinas Kesehatan
                             Muba</a>
@@ -335,21 +340,17 @@ $(window).load(function() {
                 </div>
                 <br>
                 <div>
-                    <a href="https://www.google.com/maps/search/lokasi+puskesmas+tanah+abang+kecamatan+batanghari+leko/@-2.690886,103.7857203,17z/data=!3m1!4b1"
-                        target="blank">
-                        <img src="<?php echo base_url() . 'theme/images/kota.jpg' ?>" width="50px;" class="img-fluid"
-                            alt="">
+                    <a href="https://www.google.com/maps/search/lokasi+puskesmas+tanah+abang+kecamatan+batanghari+leko/@-2.690886,103.7857203,17z/data=!3m1!4b1" target="blank">
+                        <img src="<?php echo base_url() . 'theme/images/kota.jpg' ?>" width="50px;" class="img-fluid" alt="">
                         &nbsp;
-                        <a href="https://www.google.com/maps/search/lokasi+puskesmas+tanah+abang+kecamatan+batanghari+leko/@-2.690886,103.7857203,17z/data=!3m1!4b1"
-                            target="blank" style="color :green;">UPT Puskesmas Tanah Abang</a>
+                        <a href="https://www.google.com/maps/search/lokasi+puskesmas+tanah+abang+kecamatan+batanghari+leko/@-2.690886,103.7857203,17z/data=!3m1!4b1" target="blank" style="color :green;">UPT Puskesmas Tanah Abang</a>
                     </a>
 
                 </div>
                 <br>
                 <div>
                     <a href="https://rsudsekayu.mubakab.go.id/" target="blank">
-                        <img src="<?php echo base_url() . 'theme/images/logo-rs.png' ?>" width="50px;" class="img-fluid"
-                            alt="">
+                        <img src="<?php echo base_url() . 'theme/images/logo-rs.png' ?>" width="50px;" class="img-fluid" alt="">
                         &nbsp;
                         <a href="https://rsudsekayu.mubakab.go.id/" target="blank" style="color :green;">RSUD Sekayu
                             Muba</a>
@@ -359,8 +360,7 @@ $(window).load(function() {
                 <br>
                 <div>
                     <a href="https://www.mubakab.go.id/" target="blank">
-                        <img src="<?php echo base_url() . 'theme/images/muba.png' ?>" width="50px;" class="img-fluid"
-                            alt="">
+                        <img src="<?php echo base_url() . 'theme/images/muba.png' ?>" width="50px;" class="img-fluid" alt="">
                         &nbsp;
                         <a href="https://www.mubakab.go.id/" target="blank" style="color :green;">Pemerintah Kabupaten
                             Muba</a>
@@ -370,8 +370,7 @@ $(window).load(function() {
                 <br>
                 <div>
                     <a href="https://musibanyuasinkab.bps.go.id/" target="blank">
-                        <img src="<?php echo base_url() . 'theme/images/bps.png' ?>" width="50px;" class="img-fluid"
-                            alt="">
+                        <img src="<?php echo base_url() . 'theme/images/bps.png' ?>" width="50px;" class="img-fluid" alt="">
                         &nbsp;
                         <a href="https://musibanyuasinkab.bps.go.id/" target="blank" style="color :green;">Badan Pusat
                             Statistik Muba</a>
@@ -382,73 +381,70 @@ $(window).load(function() {
                 <h2 style="text-align:center">Polling :</h2>
                 <canvas id="myChart" width="400" height="400"></canvas>
                 <script>
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var data_jumlah = [];
+                    var ctx = document.getElementById('myChart').getContext('2d');
+                    var data_jumlah = [];
 
-                $.post("<?= base_url('home/getData') ?>",
-                    function(data) {
-                        var obj = JSON.parse(data);
-                        $.each(obj, function(test, item) {
-                            data_jumlah.push(item.total1)
-                            data_jumlah.push(item.total2)
-                            data_jumlah.push(item.total3)
-                            data_jumlah.push(item.total4)
-                        });
+                    $.post("<?= base_url('home/getData') ?>",
+                        function(data) {
+                            var obj = JSON.parse(data);
+                            $.each(obj, function(test, item) {
+                                data_jumlah.push(item.total1)
+                                data_jumlah.push(item.total2)
+                                data_jumlah.push(item.total3)
+                                data_jumlah.push(item.total4)
+                            });
 
-                        var myChart = new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: ['Sangat Baik', 'Baik', 'cukup', 'kurang'],
-                                datasets: [{
-                                    label: '# Polling Website',
-                                    data: data_jumlah,
+                            var myChart = new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: ['Sangat Baik', 'Baik', 'cukup', 'kurang'],
+                                    datasets: [{
+                                        label: '# Polling Website',
+                                        data: data_jumlah,
 
-                                    backgroundColor: [
+                                        backgroundColor: [
 
-                                        'rgba(255, 206, 86, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)',
-                                        'rgba(153, 102, 255, 0.2)',
-                                        'rgba(255, 99, 132, 0.2)'
-                                    ],
-                                    borderColor: [
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 99, 132, 0.2)'
+                                        ],
+                                        borderColor: [
 
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)',
-                                        'rgba(255, 99, 132, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 99, 132, 1)'
+                                        ],
+                                        borderWidth: 1
                                     }]
+                                },
+                                options: {
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero: true
+                                            }
+                                        }]
+                                    }
                                 }
-                            }
-                        });
+                            });
 
-                    });
+                        });
                 </script>
 
 
-                <button type="submit" class="btn btn-success ml-4" data-toggle="modal"
-                    data-target="#myModal">Vote</button>
+                <button type="submit" class="btn btn-success ml-4" data-toggle="modal" data-target="#myModal">Vote</button>
 
                 <!--Modal Add Pengguna-->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                        aria-hidden="true"><span class="fa fa-close"></span></span></button>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button>
                                 <h4 class="modal-title" id="myModalLabel">Polling </h4>
                             </div>
-                            <form class="form-horizontal" action="<?php echo base_url() . 'home/simpan_poll' ?>"
-                                method="post" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="<?php echo base_url() . 'home/simpan_poll' ?>" method="post" enctype="multipart/form-data">
 
                                 <div class="modal-body">
 
@@ -465,29 +461,25 @@ $(window).load(function() {
                                                 <legend class="col-form-label col-sm-2 pt-0"></legend>
                                                 <div class="col-sm-10">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="xpoll1"
-                                                            value="1" id="gridRadios1" value="option1">
+                                                        <input class="form-check-input" type="radio" name="xpoll1" value="1" id="gridRadios1" value="option1">
                                                         <label class="form-check-label" for="gridRadios1">
                                                             Sangat Baik
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="xpoll2"
-                                                            value="1" id="gridRadios2" value="option2">
+                                                        <input class="form-check-input" type="radio" name="xpoll2" value="1" id="gridRadios2" value="option2">
                                                         <label class="form-check-label" for="gridRadios2">
                                                             Baik
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="xpoll3"
-                                                            value="1" id="gridRadios2" value="option2">
+                                                        <input class="form-check-input" type="radio" name="xpoll3" value="1" id="gridRadios2" value="option2">
                                                         <label class="form-check-label" for="gridRadios2">
                                                             Cukup
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="xpoll4"
-                                                            value="1" id="gridRadios2" value="option2">
+                                                        <input class="form-check-input" type="radio" name="xpoll4" value="1" id="gridRadios2" value="option2">
                                                         <label class="form-check-label" for="gridRadios2">
                                                             Kurang
                                                         </label>

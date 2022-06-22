@@ -46,8 +46,6 @@ CREATE TABLE `antrian` (
 -- Dumping data for table `antrian`
 --
 
-INSERT INTO `antrian` (`id`, `kode_antrian`, `nomor_antrian`, `nama_pasien`, `alamat_pasien`, `jenis_kelamin`, `keluhan`, `nomor_kis`, `tanggal`, `status`, `created_at`) VALUES
-(1, '41BCD4A6', '001', 'Nova Adi Saputra', 'Tegal', 'Laki-Laki', 'Sakit Hati', 523523632,43553453, '2022-06-14', 0, '2022-06-14 00:52:30');
 
 -- --------------------------------------------------------
 
