@@ -46,9 +46,9 @@
             position: fixed;
             left: 86%;
             bottom: 40px;
-            border: ;
+       
             background-color: white;
-            color: ;
+      
             border-radius: 100%;
             height: 50px;
             width: 50px;

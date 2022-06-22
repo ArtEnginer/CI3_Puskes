@@ -153,31 +153,34 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row text-center">
+            <div class="col-2"></div>
 
-
-            <div class="event-img2">
-                <?php foreach ($pengumuman->result() as $row) : ?>
-                    <div class="blog-single-item">
-                        <div class="blog-img_block">
-                            <img src="<?php echo base_url() . 'assets/images/' . $row->tulisan_gambar; ?>" class="img-fluid" alt="blog-img">
-                            <div class="blog-date">
-                                <span><?php echo $row->tanggal; ?></span>
+            <div class="col-8">
+                <div class="event-img2">
+                    <?php foreach ($pengumuman->result() as $row) : ?>
+                        <div class="blog-single-item">
+                            <div class="blog-img_block">
+                                <img src="<?php echo base_url() . 'assets/images/' . $row->tulisan_gambar; ?>" class="img-fluid" alt="blog-img">
+                                <div class="blog-date">
+                                    <span><?php echo $row->tanggal; ?></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="blog-tiltle_block">
-                            <h4><a href="<?php echo site_url('artikel/' . $row->tulisan_slug); ?>"><?php echo $row->tulisan_judul; ?></a></h4>
-                            <h6> <a href="#"><i class="fa fa-user" aria-hidden="true"></i><span><?php echo $row->tulisan_author; ?></span> </a> | <a href="#"><i class="fa fa-tags" aria-hidden="true"></i><span><?php echo $row->tulisan_kategori_nama; ?></span></a></h6>
-                            <?php echo limit_words($row->tulisan_isi, 10) . '...'; ?>
-                            <div class="blog-icons">
-                                <div class="blog-share_block">
-                                    <a href="<?php echo site_url('artikel/' . $row->tulisan_slug); ?>">Read More</a>
+                            <div class="blog-tiltle_block">
+                                <h4><a href="<?php echo site_url('artikel/' . $row->tulisan_slug); ?>"><?php echo $row->tulisan_judul; ?></a></h4>
+                                <h6> <a href="#"><i class="fa fa-user" aria-hidden="true"></i><span><?php echo $row->tulisan_author; ?></span> </a> | <a href="#"><i class="fa fa-tags" aria-hidden="true"></i><span><?php echo $row->tulisan_kategori_nama; ?></span></a></h6>
+                                <?php echo limit_words($row->tulisan_isi, 10) . '...'; ?>
+                                <div class="blog-icons">
+                                    <div class="blog-share_block">
+                                        <a href="<?php echo site_url('artikel/' . $row->tulisan_slug); ?>">Read More</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
+            <div class="col-2"></div>
         </div>
 
 
