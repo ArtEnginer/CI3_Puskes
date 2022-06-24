@@ -35,74 +35,7 @@
 <section>
 
 
-    <div class="slider_img layout_two js-flickity" data-flickity-options='{ "autoPlay": 5500 }'>
-        <div id="carousel" class="carousel slide" data-ride="carousel">
-
-            <ol class="carousel-indicators">
-                <?php
-                $no = 1;
-                $all = $this->db->get('tbl_slider')->num_rows(); //jumlah data pada database
-                for ($no; $no <= $all; $no++) {
-                ?>
-                    <li data-target="#carousel" data-slide-to="<?php echo $no ?>" class="<?php if ($no == 0) {
-                                                                                                echo 'active';
-                                                                                            } else {
-                                                                                                echo 'notactive';
-                                                                                            } ?>"></li>
-                <?php
-                }
-                ?>
-            </ol>
-
-            <!-- slider wrapper -->
-            <div class="carousel-inner" role="listbox">
-
-                <?php foreach ($slider->result() as $sl) : ?>
-
-                    <?php if ($sl->active) { ?>
-                        <div class="carousel-item active">
-                            <img class="d-block img-responsive" src="<?php echo base_url() . 'assets/images/' . $sl->slider_gambar; ?>">
-                            <div class="carousel-caption d-md-block ">
-                                <div class="slider_title">
-                                    <h1></h1>
-                                    <!-- <h4><br> <br> <?= $sl->slider_judul; ?>.</h4> -->
-                                    <div class="slider-btn">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php } else { ?>
-
-                        <div class="carousel-item ">
-                            <img class="d-block img-responsive" src="<?php echo base_url() . 'assets/images/' . $sl->slider_gambar; ?>">
-                            <div class="carousel-caption d-md-block">
-                                <div class="slider_title">
-                                    <h1></h1>
-                                    <h4><br> <br> </h4>
-                                    <div class="slider-btn">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    <?php } ?>
-                <?php endforeach; ?>
-            </div>
-
-            <!-- control -->
-            <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
-                <i class="icon-arrow-left fa-slider" aria-hidden="true"></i>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
-                <i class="icon-arrow-right fa-slider" aria-hidden="true"></i>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-    </div>
-
+   
 
 </section>
 

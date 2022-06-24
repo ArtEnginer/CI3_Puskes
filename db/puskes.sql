@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jun 14, 2022 at 03:32 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 24 Jun 2022 pada 03.38
+-- Versi server: 10.4.24-MariaDB
+-- Versi PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `antrian`
+-- Struktur dari tabel `antrian`
 --
 
 CREATE TABLE `antrian` (
@@ -42,62 +42,10 @@ CREATE TABLE `antrian` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `antrian`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `keys`
---
-
-CREATE TABLE `keys` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `key` varchar(40) NOT NULL,
-  `level` int(2) NOT NULL,
-  `ignore_limits` tinyint(1) NOT NULL DEFAULT 0,
-  `is_private_key` tinyint(1) NOT NULL DEFAULT 0,
-  `ip_addresses` text DEFAULT NULL,
-  `date_created` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `keys`
---
-
-INSERT INTO `keys` (`id`, `user_id`, `key`, `level`, `ignore_limits`, `is_private_key`, `ip_addresses`, `date_created`) VALUES
-(1, 1, 'wpu123', 1, 0, 0, NULL, 1),
-(2, 3, 'rahasia', 1, 0, 0, NULL, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `limits`
---
-
-CREATE TABLE `limits` (
-  `id` int(11) NOT NULL,
-  `uri` varchar(255) NOT NULL,
-  `count` int(10) NOT NULL,
-  `hour_started` int(11) NOT NULL,
-  `api_key` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `limits`
---
-
-INSERT INTO `limits` (`id`, `uri`, `count`, `hour_started`, `api_key`) VALUES
-(1, 'uri:api/penduduk/index:get', 5, 1557046500, 'rahasia'),
-(2, 'uri:api/penduduk/index:get', 10, 1556487872, 'wpu123');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `statistik`
+-- Struktur dari tabel `statistik`
 --
 
 CREATE TABLE `statistik` (
@@ -108,7 +56,7 @@ CREATE TABLE `statistik` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `statistik`
+-- Dumping data untuk tabel `statistik`
 --
 
 INSERT INTO `statistik` (`ip`, `tanggal`, `hits`, `online`) VALUES
@@ -149,12 +97,13 @@ INSERT INTO `statistik` (`ip`, `tanggal`, `hits`, `online`) VALUES
 ('127.0.0.1', '2022-06-11', 14, '1654967236'),
 ('127.0.0.1', '2022-06-12', 44, '1654994066'),
 ('127.0.0.1', '2022-06-13', 4, '1655079222'),
-('127.0.0.1', '2022-06-14', 2, '1655139807');
+('127.0.0.1', '2022-06-14', 2, '1655139807'),
+('::1', '2022-06-24', 17, '1656034447');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_agenda`
+-- Struktur dari tabel `tbl_agenda`
 --
 
 CREATE TABLE `tbl_agenda` (
@@ -171,7 +120,7 @@ CREATE TABLE `tbl_agenda` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_agenda`
+-- Dumping data untuk tabel `tbl_agenda`
 --
 
 INSERT INTO `tbl_agenda` (`agenda_id`, `agenda_nama`, `agenda_tanggal`, `agenda_deskripsi`, `agenda_mulai`, `agenda_selesai`, `agenda_tempat`, `agenda_waktu`, `agenda_keterangan`, `agenda_author`) VALUES
@@ -182,7 +131,7 @@ INSERT INTO `tbl_agenda` (`agenda_id`, `agenda_nama`, `agenda_tanggal`, `agenda_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_album`
+-- Struktur dari tabel `tbl_album`
 --
 
 CREATE TABLE `tbl_album` (
@@ -196,7 +145,7 @@ CREATE TABLE `tbl_album` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_album`
+-- Dumping data untuk tabel `tbl_album`
 --
 
 INSERT INTO `tbl_album` (`album_id`, `album_nama`, `album_tanggal`, `album_pengguna_id`, `album_author`, `album_count`, `album_cover`) VALUES
@@ -206,7 +155,7 @@ INSERT INTO `tbl_album` (`album_id`, `album_nama`, `album_tanggal`, `album_pengg
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_bulan`
+-- Struktur dari tabel `tbl_bulan`
 --
 
 CREATE TABLE `tbl_bulan` (
@@ -215,7 +164,7 @@ CREATE TABLE `tbl_bulan` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_bulan`
+-- Dumping data untuk tabel `tbl_bulan`
 --
 
 INSERT INTO `tbl_bulan` (`id`, `name`) VALUES
@@ -235,44 +184,7 @@ INSERT INTO `tbl_bulan` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_ektp`
---
-
-CREATE TABLE `tbl_ektp` (
-  `ektp_id` int(11) NOT NULL,
-  `ektp_kelurahan_id` int(11) NOT NULL,
-  `ektp_judul` varchar(50) NOT NULL,
-  `ektp_alamat` varchar(50) NOT NULL,
-  `ektp_ket` varchar(100) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_files`
---
-
-CREATE TABLE `tbl_files` (
-  `file_id` int(11) NOT NULL,
-  `file_judul` varchar(120) DEFAULT NULL,
-  `file_deskripsi` text DEFAULT NULL,
-  `file_tanggal` timestamp NULL DEFAULT current_timestamp(),
-  `file_oleh` varchar(60) DEFAULT NULL,
-  `file_download` int(11) DEFAULT 0,
-  `file_data` varchar(120) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_files`
---
-
-INSERT INTO `tbl_files` (`file_id`, `file_judul`, `file_deskripsi`, `file_tanggal`, `file_oleh`, `file_download`, `file_data`) VALUES
-(2, 'Dasar-dasar CSS', 'Modul dasar-dasar CSS 3. Modul ini membantu anda untuk memahami struktur dasar CSS', '2017-01-23 04:30:01', 'Erte', 0, 'ab9a183ff240deadbedaff78e639af2f.pdf');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_galeri`
+-- Struktur dari tabel `tbl_galeri`
 --
 
 CREATE TABLE `tbl_galeri` (
@@ -286,7 +198,7 @@ CREATE TABLE `tbl_galeri` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_galeri`
+-- Dumping data untuk tabel `tbl_galeri`
 --
 
 INSERT INTO `tbl_galeri` (`galeri_id`, `galeri_judul`, `galeri_tanggal`, `galeri_gambar`, `galeri_album_id`, `galeri_pengguna_id`, `galeri_author`) VALUES
@@ -303,7 +215,7 @@ INSERT INTO `tbl_galeri` (`galeri_id`, `galeri_judul`, `galeri_tanggal`, `galeri
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_guru`
+-- Struktur dari tabel `tbl_guru`
 --
 
 CREATE TABLE `tbl_guru` (
@@ -319,7 +231,7 @@ CREATE TABLE `tbl_guru` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_guru`
+-- Dumping data untuk tabel `tbl_guru`
 --
 
 INSERT INTO `tbl_guru` (`guru_id`, `guru_nip`, `guru_nama`, `guru_jenkel`, `guru_tmp_lahir`, `guru_tgl_lahir`, `guru_mapel`, `guru_photo`, `guru_tgl_input`) VALUES
@@ -329,7 +241,7 @@ INSERT INTO `tbl_guru` (`guru_id`, `guru_nip`, `guru_nama`, `guru_jenkel`, `guru
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_ijin`
+-- Struktur dari tabel `tbl_ijin`
 --
 
 CREATE TABLE `tbl_ijin` (
@@ -341,7 +253,7 @@ CREATE TABLE `tbl_ijin` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_ijin`
+-- Dumping data untuk tabel `tbl_ijin`
 --
 
 INSERT INTO `tbl_ijin` (`ijin_id`, `ijin_judul`, `ijin_tanggal`, `ijin_isi`, `ijin_gambar`) VALUES
@@ -350,23 +262,7 @@ INSERT INTO `tbl_ijin` (`ijin_id`, `ijin_judul`, `ijin_tanggal`, `ijin_isi`, `ij
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_inbox`
---
-
-CREATE TABLE `tbl_inbox` (
-  `inbox_id` int(11) NOT NULL,
-  `inbox_nama` varchar(40) DEFAULT NULL,
-  `inbox_email` varchar(60) DEFAULT NULL,
-  `inbox_kontak` varchar(20) DEFAULT NULL,
-  `inbox_pesan` text DEFAULT NULL,
-  `inbox_tanggal` timestamp NULL DEFAULT current_timestamp(),
-  `inbox_status` int(11) DEFAULT 1 COMMENT '1=Belum dilihat, 0=Telah dilihat'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_kategori`
+-- Struktur dari tabel `tbl_kategori`
 --
 
 CREATE TABLE `tbl_kategori` (
@@ -376,7 +272,7 @@ CREATE TABLE `tbl_kategori` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_kategori`
+-- Dumping data untuk tabel `tbl_kategori`
 --
 
 INSERT INTO `tbl_kategori` (`kategori_id`, `kategori_nama`, `kategori_tanggal`) VALUES
@@ -384,12 +280,13 @@ INSERT INTO `tbl_kategori` (`kategori_id`, `kategori_nama`, `kategori_tanggal`) 
 (5, 'Pemberdayaan Masyarakat', '2022-04-18 06:19:26'),
 (6, 'Ketentraman Dan Ketertiban', '2022-04-18 02:51:09'),
 (21, 'Umum', '2022-04-18 06:57:56'),
-(19, 'Keagamaan', '2022-04-18 06:30:58');
+(19, 'Keagamaan', '2022-04-18 06:30:58'),
+(22, 'pengumuman', '2022-06-24 00:43:01');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_kelas`
+-- Struktur dari tabel `tbl_kelas`
 --
 
 CREATE TABLE `tbl_kelas` (
@@ -398,7 +295,7 @@ CREATE TABLE `tbl_kelas` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_kelas`
+-- Dumping data untuk tabel `tbl_kelas`
 --
 
 INSERT INTO `tbl_kelas` (`kelas_id`, `kelas_nama`) VALUES
@@ -420,18 +317,7 @@ INSERT INTO `tbl_kelas` (`kelas_id`, `kelas_nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_kelurahan`
---
-
-CREATE TABLE `tbl_kelurahan` (
-  `kelurahan_id` int(11) NOT NULL,
-  `kelurahan_nama` varchar(20) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_komentar`
+-- Struktur dari tabel `tbl_komentar`
 --
 
 CREATE TABLE `tbl_komentar` (
@@ -446,7 +332,7 @@ CREATE TABLE `tbl_komentar` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_komentar`
+-- Dumping data untuk tabel `tbl_komentar`
 --
 
 INSERT INTO `tbl_komentar` (`komentar_id`, `komentar_nama`, `komentar_email`, `komentar_isi`, `komentar_tanggal`, `komentar_status`, `komentar_tulisan_id`, `komentar_parent`) VALUES
@@ -462,29 +348,7 @@ INSERT INTO `tbl_komentar` (`komentar_id`, `komentar_nama`, `komentar_email`, `k
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_layanan`
---
-
-CREATE TABLE `tbl_layanan` (
-  `layanan_id` int(11) NOT NULL,
-  `layanan_judul` varchar(50) NOT NULL,
-  `layanan_pemohon` varchar(50) NOT NULL,
-  `layanan_tanggal` date NOT NULL,
-  `layanan_kelurahan_id` int(11) NOT NULL,
-  `layanan_ket` varchar(50) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_layanan`
---
-
-INSERT INTO `tbl_layanan` (`layanan_id`, `layanan_judul`, `layanan_pemohon`, `layanan_tanggal`, `layanan_kelurahan_id`, `layanan_ket`) VALUES
-(7, 'Kelurahan Tuladenggi', 'Abas', '2019-04-03', 3, 'selesai');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_log_aktivitas`
+-- Struktur dari tabel `tbl_log_aktivitas`
 --
 
 CREATE TABLE `tbl_log_aktivitas` (
@@ -500,7 +364,7 @@ CREATE TABLE `tbl_log_aktivitas` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_nonijin`
+-- Struktur dari tabel `tbl_nonijin`
 --
 
 CREATE TABLE `tbl_nonijin` (
@@ -511,7 +375,7 @@ CREATE TABLE `tbl_nonijin` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_nonijin`
+-- Dumping data untuk tabel `tbl_nonijin`
 --
 
 INSERT INTO `tbl_nonijin` (`nonijin_id`, `nonijin_judul`, `nonijin_isi`, `nonijin_ket`) VALUES
@@ -525,7 +389,7 @@ INSERT INTO `tbl_nonijin` (`nonijin_id`, `nonijin_judul`, `nonijin_isi`, `noniji
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_nopen`
+-- Struktur dari tabel `tbl_nopen`
 --
 
 CREATE TABLE `tbl_nopen` (
@@ -536,7 +400,7 @@ CREATE TABLE `tbl_nopen` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_nopen`
+-- Dumping data untuk tabel `tbl_nopen`
 --
 
 INSERT INTO `tbl_nopen` (`nopen_id`, `nopen_user`, `nopen_hp`, `nopen_ket`) VALUES
@@ -550,43 +414,7 @@ INSERT INTO `tbl_nopen` (`nopen_id`, `nopen_user`, `nopen_hp`, `nopen_ket`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_penduduk`
---
-
-CREATE TABLE `tbl_penduduk` (
-  `id` int(100) NOT NULL,
-  `nik` varchar(100) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `jk` varchar(100) NOT NULL,
-  `tempat_lahir` varchar(100) NOT NULL,
-  `tgl_lahir` date NOT NULL,
-  `umur` int(100) NOT NULL,
-  `gdr` varchar(100) NOT NULL,
-  `agama` varchar(100) NOT NULL,
-  `stts` varchar(100) NOT NULL,
-  `shdk` varchar(100) NOT NULL,
-  `shdrt` int(100) NOT NULL,
-  `pddk_akhir` varchar(100) NOT NULL,
-  `pekerjaan` varchar(100) NOT NULL,
-  `nama_ibu` varchar(100) NOT NULL,
-  `nama_ayah` varchar(100) NOT NULL,
-  `no_kk` int(100) NOT NULL,
-  `nama_kk` varchar(100) NOT NULL,
-  `alamat` varchar(100) NOT NULL,
-  `provinsi` varchar(100) NOT NULL,
-  `no_kota` int(100) NOT NULL,
-  `nama_kota` varchar(100) NOT NULL,
-  `nama_kec` varchar(100) NOT NULL,
-  `no_kel` int(100) NOT NULL,
-  `nama_kel` varchar(100) NOT NULL,
-  `rw` int(10) NOT NULL,
-  `rt` int(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_pengguna`
+-- Struktur dari tabel `tbl_pengguna`
 --
 
 CREATE TABLE `tbl_pengguna` (
@@ -610,7 +438,7 @@ CREATE TABLE `tbl_pengguna` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_pengguna`
+-- Dumping data untuk tabel `tbl_pengguna`
 --
 
 INSERT INTO `tbl_pengguna` (`pengguna_id`, `pengguna_nama`, `pengguna_moto`, `pengguna_jenkel`, `pengguna_username`, `pengguna_password`, `pengguna_tentang`, `pengguna_email`, `pengguna_nohp`, `pengguna_facebook`, `pengguna_twitter`, `pengguna_linkdin`, `pengguna_google_plus`, `pengguna_status`, `pengguna_level`, `pengguna_register`, `pengguna_photo`) VALUES
@@ -619,30 +447,7 @@ INSERT INTO `tbl_pengguna` (`pengguna_id`, `pengguna_nama`, `pengguna_moto`, `pe
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_pengumuman`
---
-
-CREATE TABLE `tbl_pengumuman` (
-  `pengumuman_id` int(11) NOT NULL,
-  `pengumuman_judul` varchar(150) DEFAULT NULL,
-  `pengumuman_deskripsi` text DEFAULT NULL,
-  `pengumuman_tanggal` timestamp NULL DEFAULT current_timestamp(),
-  `pengumuman_author` varchar(60) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_pengumuman`
---
-
-INSERT INTO `tbl_pengumuman` (`pengumuman_id`, `pengumuman_judul`, `pengumuman_deskripsi`, `pengumuman_tanggal`, `pengumuman_author`) VALUES
-(8, 'Vaksin booster  untuk memperkuat tingkat kekebalan', 'Info ayo kita vaksin booster \r\nuntuk memperkuat tingkat kekebalan dan memperpanjang perlindungan terhadap Covid-19. Pelayanan vaksinasi covid-19 buka setiap hari (kecuali hari libur) pukul : 08.30 s.d selesai', '2022-04-15 05:22:36', 'Ananda '),
-(7, 'Ibu Hamil Vaksin Booster', 'Info untuk bumil sudah bisa untuk vaksin bosster yaa , Kemenkes memberikan izin kepada ibu hamil untuk mendapatkan vaksin booster , ayok datang ke puskesmas kami buka setiap hari dari senin-sabtu (kecuali hari libur) jam 08.30 s.d selesai.', '2022-04-15 05:20:23', 'Ananda '),
-(9, 'Gebyar Vaksin Massal BERHADIAH', 'Ayo Randikers.. jangan lewatkan Gebyar Vaksin Massal BERHADIAH di balai desa Bukit Selabu Kecamatan Batanghari Leko, Sabtu 12 Maret 2022 jam 08.00 wib.', '2022-04-15 05:26:24', 'Ananda ');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_pengunjung`
+-- Struktur dari tabel `tbl_pengunjung`
 --
 
 CREATE TABLE `tbl_pengunjung` (
@@ -655,7 +460,7 @@ CREATE TABLE `tbl_pengunjung` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_pengunjung`
+-- Dumping data untuk tabel `tbl_pengunjung`
 --
 
 INSERT INTO `tbl_pengunjung` (`pengunjung_id`, `pengunjung_tanggal`, `pengunjung_ip`, `pengunjung_perangkat`, `hits`, `online`) VALUES
@@ -671,26 +476,13 @@ INSERT INTO `tbl_pengunjung` (`pengunjung_id`, `pengunjung_tanggal`, `pengunjung
 (1049, '2022-06-11 00:12:16', '127.0.0.1', 'Chrome', 1, ''),
 (1050, '2022-06-11 17:07:16', '127.0.0.1', 'Chrome', 1, ''),
 (1051, '2022-06-13 07:05:19', '127.0.0.1', 'Chrome', 1, ''),
-(1052, '2022-06-13 17:03:26', '127.0.0.1', 'Chrome', 1, '');
+(1052, '2022-06-13 17:03:26', '127.0.0.1', 'Chrome', 1, ''),
+(1053, '2022-06-24 00:30:52', '::1', 'Chrome', 1, '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_peta`
---
-
-CREATE TABLE `tbl_peta` (
-  `peta_id` int(11) NOT NULL,
-  `peta_judul` varchar(100) NOT NULL,
-  `peta_tanggal` date NOT NULL,
-  `peta_isi` text NOT NULL,
-  `peta_gambar` varchar(10000) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_poll`
+-- Struktur dari tabel `tbl_poll`
 --
 
 CREATE TABLE `tbl_poll` (
@@ -702,7 +494,7 @@ CREATE TABLE `tbl_poll` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_poll`
+-- Dumping data untuk tabel `tbl_poll`
 --
 
 INSERT INTO `tbl_poll` (`id`, `Sbaik`, `baik`, `cukup`, `kurang`) VALUES
@@ -722,21 +514,7 @@ INSERT INTO `tbl_poll` (`id`, `Sbaik`, `baik`, `cukup`, `kurang`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_potensi`
---
-
-CREATE TABLE `tbl_potensi` (
-  `potensi_id` int(11) NOT NULL,
-  `potensi_kelurahan_id` int(11) NOT NULL,
-  `potensi_judul` varchar(50) NOT NULL,
-  `potensi_gambar` varchar(5000) NOT NULL,
-  `potensi_ket` varchar(100) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_sejarah`
+-- Struktur dari tabel `tbl_sejarah`
 --
 
 CREATE TABLE `tbl_sejarah` (
@@ -748,7 +526,7 @@ CREATE TABLE `tbl_sejarah` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_sejarah`
+-- Dumping data untuk tabel `tbl_sejarah`
 --
 
 INSERT INTO `tbl_sejarah` (`sejarah_id`, `sejarah_judul`, `sejarah_tanggal`, `sejarah_isi`, `sejarah_gambar`) VALUES
@@ -757,20 +535,7 @@ INSERT INTO `tbl_sejarah` (`sejarah_id`, `sejarah_judul`, `sejarah_tanggal`, `se
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_service`
---
-
-CREATE TABLE `tbl_service` (
-  `service_id` int(11) NOT NULL,
-  `service_judul` varchar(30) NOT NULL,
-  `service_gambar` varchar(2500) NOT NULL,
-  `service_metod` varchar(20) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_siswa`
+-- Struktur dari tabel `tbl_siswa`
 --
 
 CREATE TABLE `tbl_siswa` (
@@ -783,7 +548,7 @@ CREATE TABLE `tbl_siswa` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_siswa`
+-- Dumping data untuk tabel `tbl_siswa`
 --
 
 INSERT INTO `tbl_siswa` (`siswa_id`, `siswa_nis`, `siswa_nama`, `siswa_jenkel`, `siswa_kelas_id`, `siswa_photo`) VALUES
@@ -792,24 +557,7 @@ INSERT INTO `tbl_siswa` (`siswa_id`, `siswa_nis`, `siswa_nama`, `siswa_jenkel`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_slider`
---
-
-CREATE TABLE `tbl_slider` (
-  `slider_id` int(100) NOT NULL,
-  `slider_judul` varchar(100) NOT NULL,
-  `slider_tanggal` timestamp NOT NULL DEFAULT current_timestamp(),
-  `slider_gambar` mediumtext NOT NULL,
-  `active` tinyint(1) NOT NULL,
-  `slider_album_id` int(100) NOT NULL,
-  `slider_pengguna_id` int(100) NOT NULL,
-  `slider_author` varchar(100) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_sotk`
+-- Struktur dari tabel `tbl_sotk`
 --
 
 CREATE TABLE `tbl_sotk` (
@@ -820,7 +568,7 @@ CREATE TABLE `tbl_sotk` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_sotk`
+-- Dumping data untuk tabel `tbl_sotk`
 --
 
 INSERT INTO `tbl_sotk` (`sotk_id`, `sotk_judul`, `sotk_isi`, `sotk_gambar`) VALUES
@@ -829,7 +577,7 @@ INSERT INTO `tbl_sotk` (`sotk_id`, `sotk_judul`, `sotk_isi`, `sotk_gambar`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_tulisan`
+-- Struktur dari tabel `tbl_tulisan`
 --
 
 CREATE TABLE `tbl_tulisan` (
@@ -848,33 +596,19 @@ CREATE TABLE `tbl_tulisan` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_tulisan`
+-- Dumping data untuk tabel `tbl_tulisan`
 --
 
 INSERT INTO `tbl_tulisan` (`tulisan_id`, `tulisan_judul`, `tulisan_isi`, `tulisan_tanggal`, `tulisan_kategori_id`, `tulisan_kategori_nama`, `tulisan_views`, `tulisan_gambar`, `tulisan_pengguna_id`, `tulisan_author`, `tulisan_img_slider`, `tulisan_slug`) VALUES
 (33, 'Vaksin Massal Di BHL Muba Dimulai Sisir Lansia Hingga ODGJ Dan Penyandang Disabilitas', '<p>Sebanyak 220 orang yang berasal dari 7 desa di Kecamatan Batanghari Leko, Kabupaten Musi Banyuasin, Senin (22/6) menjalani vaksinasi massal di halaman kantor Camat Batanghari Leko. Vaksinasi ini merupakan kegiatan pelaksanaan vaksin berkelanjutan dan dinamis (mobile) untuk wilayah kerja UPT Puskesmas Tanah Abang.</p>\r\n\r\n<p>&quot;Sasaran untuk vaksinasi kita 500 orang, tapi yang divaksin disini 220 orang. Sasarannya Orang Dengan Gangguan Jiwa (ODGJ), Penyandang Disabilitas (Usia diatas 18 Tahun), Lansia dan seluruh pelayanan publik,&quot; ujar Kepala UPT Puskesmas Tanah Abang, Kurniawan SKM MKes.</p>\r\n\r\n<p>Adapun peserta vaksin berasal dari tujuh desa yakni Desa Tanah Abang, Tanjung Bali, Saud, Talang Leban, Pinggap, Pengaturan, dan Lubuk Buah. &quot;Sisanya nanti 280 orang akan dilakukan vaksinasi di Puskesmas, karena kalau dilaksanakan satu hari semua tak memungkinkan, kita juga menghindari kerumunan,&quot; ungkap Camat Batanghari Leko, Drs Yuliarto MSi.</p>\r\n\r\n<p>Selain di wilayah Puskesmas Tanah Abang, program vaksinasi nantinya akan dilakukan juga di dua puskesmas lain yang ada di Kecamatan Batanghari Leko yakni Puskesmas Lubuk Bintialo dan Bukit Selabu. &quot;Kepada masyarakat yang sudah divaksin, tetap harus mematuhi protokol kesehatan. Ini untuk mengurangi potensi penularan Covid-19,&quot; kata Yuliarto.</p>\r\n', '2022-04-15 05:13:06', 1, 'Pelayanan Publik', 3, '2c530b7965e6c64f537f0a63b9d1ed8f.jpg', 14, 'Ananda ', 0, 'vaksin-massal-di-bhl-muba-dimulai-sisir-lansia-hingga-odgj-dan-penyandang-disabilitas'),
 (32, 'Kunjungi Puskesmas Tanah Abang Ketua TP PKK Muba Apresiasi Inovasi Para Nakes', '<p>Usai meresmikan Warung Kelompok Wanita Tani (KWT) Rambutan Desa Tanah Abang, Ketua Tim Penggerak PKK Kabupaten&nbsp;Musi Banyuasin (Muba) Hj Thia Yufada Dodi Reza didampingi Wakil Ketua TP PKK Kabupaten Muba Susy Imelda Beni Hernedi melanjutkan kegiatan kunjungan ke UPTD Puskesmas Tanah Abang Kecamatan Batanghari Leko, Selasa (12/10).</p>\r\n\r\n<p>Kedatangan rombongan TP PKK Kabupaten Muba disambut penuh ceria oleh anak-anak peserta didik PAUD Desa Tanah Abang. Ketua dan Wakil Ketua TP PKK Muba dengan penuh bahagia menyapa anak-anak PAUD dan langsung memberikan hadiah kepada anak-anak.</p>\r\n\r\n<p>Kemudian Bunda Baca Kabupaten Muba ini meninjau langsung rumah dinas tenaga kesehatan yang baru selesai dibangun dan Perpustakaan Kesehatan yang dikelola oleh UPTD Puskesmas Tanah Abang dibawah komando Plt Kepala Puskesmas Tanah Abang Kurniawan SKM MKes.</p>\r\n\r\n<p>Selanjutnya Ketua, Wakil bersama Anggota TP PKK mendatangi langsung Plaza Bataleke Puskesmas Tanah Abang, dimana tempat tersebut merupakan pojok bersantai, disediakan bebagai sajian minuman obat herbal yang diberikan gratis bagi pasien yang mendatangi UPTD Puskesmas Tanah Abang.</p>\r\n\r\n<p>Istri Bupati dan Wakil Bupati Muba ini didampingi Kepala Dinas Kesehatan Kabupaten Muba dr Azmi Dariusmansyah menikmati langsung seduhan minuman herbal jahe hangat yang tentunya punya banyak sekali manfaat bagi kesehatan.</p>\r\n\r\n<p>Thia Yufada memberikan apresiasi atas berbagai inovasi yang dilakukan oleh UPTD Puskemas Tanah Abang. Diharapkan kedepan terus menelurkan inovasi-inovasi lainnya lagi, demi memberikan pelayanan kesehatan yang maksimal bagi masyarakat.</p>\r\n\r\n<p>&ldquo;Untuk para tenaga kesehatan (nakes) di UPTD Puskesmas Tanah Abang teruslah bersemangat untuk memberikan pelayanan kesehatan yang terbaik bagi masyarakat, meski suntik vaksin sudah kita laksanakan dan daerah kita sudah zona hijau namun tetap harus mematuhi protokol kesehatan,&rdquo; pungkasnya.</p>\r\n\r\n<p>Pada kesempatan tersebut Ketua TP PKK didampingi Kadinkes Muba dan Ketua TP PKK Kecamatan Batanghari Leko secara simbolis menyerahkan bantuan dari Dinas Kesehatan berupa alat antropometri untuk nakes, posyandu kit untuk kader kesehatan, posbindu kit untuk kader kesehatan dan bantuan dari pt mbi untuk Puskesmas Tanah Abang berupa satu unit PC. (Tarmizi)</p>\r\n', '2022-04-15 05:09:56', 5, 'Pemberdayaan Masyarakat', 2, '6f0bdc8bf309de32bca87734919af495.jpg', 14, 'Ananda ', 0, 'kunjungi-puskesmas-tanah-abang-ketua-tp-pkk-muba-apresiasi-inovasi-para-nakes'),
-(35, 'Sungai Batanghari Leko Meluap Permukiman Banjir 1 Meter', '<p>Meningkatnya intensitas hujan di Kabupaten Musi Banyuasin, Sumatera Selatan, membuat Sungai Batanghari Leko di sana kembali meluap. Airnya mengalir ke permukiman di beberapa desa di Kecamatan Lais, hingga menimbulkan kebanjiran.</p>\r\n\r\n<p>Desa yang terendam itu yakni Desa Epil, Desa Teluk, Desa Petaling, dan Desa Teluk Kijing. Ribuan rumah di sana terkena bencana itu.</p>\r\n\r\n<p>Informasi yang dihimpun, banjir di sana sekira 1,5 meter. Bencana ini membuat warga di sana khawatir terserang penyakit seperti gatal-gatal.</p>\r\n\r\n<p>Selain itu, pada umumnya aktivitas korban terganggu karena insiden ini. Namun ada salah satu warga yang tetap berupaya untuk meneruskan rutinitasnya. Ia dalah Siti, warga Desa Epil.</p>\r\n\r\n<p>Meski rumahnya tergenang air, Siti terus melakoni pekerjaannya dengan membuat keranjang atau wadah untuk memanen padi.</p>\r\n', '2022-04-17 13:11:42', 21, 'Umum', 5, 'b8718ef0b1e1f3bb4951595b88a75a5e.jpg', 14, 'Ananda ', 0, 'sungai-batanghari-leko-meluap-permukiman-banjir-1-meter');
+(35, 'Sungai Batanghari Leko Meluap Permukiman Banjir 1 Meter', '<p>Meningkatnya intensitas hujan di Kabupaten Musi Banyuasin, Sumatera Selatan, membuat Sungai Batanghari Leko di sana kembali meluap. Airnya mengalir ke permukiman di beberapa desa di Kecamatan Lais, hingga menimbulkan kebanjiran.</p>\r\n\r\n<p>Desa yang terendam itu yakni Desa Epil, Desa Teluk, Desa Petaling, dan Desa Teluk Kijing. Ribuan rumah di sana terkena bencana itu.</p>\r\n\r\n<p>Informasi yang dihimpun, banjir di sana sekira 1,5 meter. Bencana ini membuat warga di sana khawatir terserang penyakit seperti gatal-gatal.</p>\r\n\r\n<p>Selain itu, pada umumnya aktivitas korban terganggu karena insiden ini. Namun ada salah satu warga yang tetap berupaya untuk meneruskan rutinitasnya. Ia dalah Siti, warga Desa Epil.</p>\r\n\r\n<p>Meski rumahnya tergenang air, Siti terus melakoni pekerjaannya dengan membuat keranjang atau wadah untuk memanen padi.</p>\r\n', '2022-04-17 13:11:42', 21, 'Umum', 6, 'b8718ef0b1e1f3bb4951595b88a75a5e.jpg', 14, 'Ananda ', 0, 'sungai-batanghari-leko-meluap-permukiman-banjir-1-meter'),
+(36, 'Vaksinasi', '<p>Vaksinasi akan dilakukan</p>\r\n', '2022-06-24 00:43:49', 22, 'pengumuman', 0, 'db4022e2ad6c79952b5974d956b11fcb.jpg', 14, 'Ananda ', 0, 'vaksinasi');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_tunggakan`
---
-
-CREATE TABLE `tbl_tunggakan` (
-  `tunggakan_id` int(11) NOT NULL,
-  `tunggakan_kelurahan_id` int(11) NOT NULL,
-  `tunggakan_judul` varchar(50) NOT NULL,
-  `tunggakan_jumlah` int(11) NOT NULL,
-  `tunggakan_tahun` year(4) NOT NULL,
-  `tunggakan_ket` varchar(100) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_visi`
+-- Struktur dari tabel `tbl_visi`
 --
 
 CREATE TABLE `tbl_visi` (
@@ -886,7 +620,7 @@ CREATE TABLE `tbl_visi` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_visi`
+-- Dumping data untuk tabel `tbl_visi`
 --
 
 INSERT INTO `tbl_visi` (`visi_id`, `visi_judul`, `visi_tanggal`, `visi_isi`, `visi_gambar`) VALUES
@@ -895,7 +629,7 @@ INSERT INTO `tbl_visi` (`visi_id`, `visi_judul`, `visi_tanggal`, `visi_isi`, `vi
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_access_menu`
+-- Struktur dari tabel `user_access_menu`
 --
 
 CREATE TABLE `user_access_menu` (
@@ -905,7 +639,7 @@ CREATE TABLE `user_access_menu` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user_access_menu`
+-- Dumping data untuk tabel `user_access_menu`
 --
 
 INSERT INTO `user_access_menu` (`id`, `pengguna_id`, `menu_id`) VALUES
@@ -918,7 +652,7 @@ INSERT INTO `user_access_menu` (`id`, `pengguna_id`, `menu_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_menu`
+-- Struktur dari tabel `user_menu`
 --
 
 CREATE TABLE `user_menu` (
@@ -927,7 +661,7 @@ CREATE TABLE `user_menu` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user_menu`
+-- Dumping data untuk tabel `user_menu`
 --
 
 INSERT INTO `user_menu` (`id`, `menu`) VALUES
@@ -937,7 +671,7 @@ INSERT INTO `user_menu` (`id`, `menu`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_role`
+-- Struktur dari tabel `user_role`
 --
 
 CREATE TABLE `user_role` (
@@ -946,7 +680,7 @@ CREATE TABLE `user_role` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user_role`
+-- Dumping data untuk tabel `user_role`
 --
 
 INSERT INTO `user_role` (`id`, `role`) VALUES
@@ -956,7 +690,7 @@ INSERT INTO `user_role` (`id`, `role`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_ss_menu`
+-- Struktur dari tabel `user_ss_menu`
 --
 
 CREATE TABLE `user_ss_menu` (
@@ -970,7 +704,7 @@ CREATE TABLE `user_ss_menu` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user_ss_menu`
+-- Dumping data untuk tabel `user_ss_menu`
 --
 
 INSERT INTO `user_ss_menu` (`id`, `menu_id`, `menu_ss`, `title`, `url`, `icon`, `pengguna_status`) VALUES
@@ -982,7 +716,7 @@ INSERT INTO `user_ss_menu` (`id`, `menu_id`, `menu_ss`, `title`, `url`, `icon`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_sub_menu`
+-- Struktur dari tabel `user_sub_menu`
 --
 
 CREATE TABLE `user_sub_menu` (
@@ -996,16 +730,15 @@ CREATE TABLE `user_sub_menu` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user_sub_menu`
+-- Dumping data untuk tabel `user_sub_menu`
 --
 
 INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `subtitle`, `url`, `icon`, `pengguna_status`) VALUES
 (7, 9, 'Data Pengguna', '', 'superadmin/pengguna', 'fa fa-fw fa-users', 1),
 (5, 9, 'Data Menu', '', 'superadmin/menu', 'fa fa-fw fa-home', 1),
 (6, 9, 'Data Submenu', '', 'superadmin/menu/submenu', 'fa fa-fw fa-bars', 1),
-(8, 10, 'Data Berita', '', 'adminkantor/tulisan', 'fa fa-fw fa-newspaper-o', 1),
+(8, 10, 'CMS', '', 'adminkantor/tulisan', 'fa fa-fw fa-newspaper-o', 1),
 (12, 9, 'Data Komentar', '', 'superadmin/komentar', 'fa fa-fw fa-comments-o', 1),
-(13, 10, 'Data Pengumuman', '', 'adminkantor/pengumuman', 'fa fa-fw fa-bullhorn', 1),
 (14, 10, 'Data Agenda', '', 'adminkantor/agenda', 'fa fa-fw fa-book', 1),
 (16, 9, 'Data Kategori Berita', '', 'superadmin/kategori', 'fa fa-fw fa-check-square-o', 1),
 (17, 10, 'Data Nomor Penting', '', 'adminkantor/nopen', 'fa fa-fw fa-phone', 1),
@@ -1014,7 +747,7 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `subtitle`, `url`, `icon`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_tree_menu`
+-- Struktur dari tabel `user_tree_menu`
 --
 
 CREATE TABLE `user_tree_menu` (
@@ -1028,7 +761,7 @@ CREATE TABLE `user_tree_menu` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user_tree_menu`
+-- Dumping data untuk tabel `user_tree_menu`
 --
 
 INSERT INTO `user_tree_menu` (`id`, `menu_id`, `menu_tree`, `title`, `url`, `icon`, `pengguna_status`) VALUES
@@ -1047,57 +780,32 @@ INSERT INTO `user_tree_menu` (`id`, `menu_id`, `menu_tree`, `title`, `url`, `ico
 --
 
 --
--- Indexes for table `antrian`
+-- Indeks untuk tabel `antrian`
 --
 ALTER TABLE `antrian`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `keys`
---
-ALTER TABLE `keys`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `limits`
---
-ALTER TABLE `limits`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbl_agenda`
+-- Indeks untuk tabel `tbl_agenda`
 --
 ALTER TABLE `tbl_agenda`
   ADD PRIMARY KEY (`agenda_id`);
 
 --
--- Indexes for table `tbl_album`
+-- Indeks untuk tabel `tbl_album`
 --
 ALTER TABLE `tbl_album`
   ADD PRIMARY KEY (`album_id`),
   ADD KEY `album_pengguna_id` (`album_pengguna_id`);
 
 --
--- Indexes for table `tbl_bulan`
+-- Indeks untuk tabel `tbl_bulan`
 --
 ALTER TABLE `tbl_bulan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tbl_ektp`
---
-ALTER TABLE `tbl_ektp`
-  ADD PRIMARY KEY (`ektp_id`),
-  ADD KEY `ektp_kelurahan_id` (`ektp_kelurahan_id`);
-
---
--- Indexes for table `tbl_files`
---
-ALTER TABLE `tbl_files`
-  ADD PRIMARY KEY (`file_id`);
-
---
--- Indexes for table `tbl_galeri`
+-- Indeks untuk tabel `tbl_galeri`
 --
 ALTER TABLE `tbl_galeri`
   ADD PRIMARY KEY (`galeri_id`),
@@ -1105,149 +813,93 @@ ALTER TABLE `tbl_galeri`
   ADD KEY `galeri_pengguna_id` (`galeri_pengguna_id`);
 
 --
--- Indexes for table `tbl_guru`
+-- Indeks untuk tabel `tbl_guru`
 --
 ALTER TABLE `tbl_guru`
   ADD PRIMARY KEY (`guru_id`);
 
 --
--- Indexes for table `tbl_ijin`
+-- Indeks untuk tabel `tbl_ijin`
 --
 ALTER TABLE `tbl_ijin`
   ADD PRIMARY KEY (`ijin_id`);
 
 --
--- Indexes for table `tbl_inbox`
---
-ALTER TABLE `tbl_inbox`
-  ADD PRIMARY KEY (`inbox_id`);
-
---
--- Indexes for table `tbl_kategori`
+-- Indeks untuk tabel `tbl_kategori`
 --
 ALTER TABLE `tbl_kategori`
   ADD PRIMARY KEY (`kategori_id`);
 
 --
--- Indexes for table `tbl_kelas`
+-- Indeks untuk tabel `tbl_kelas`
 --
 ALTER TABLE `tbl_kelas`
   ADD PRIMARY KEY (`kelas_id`);
 
 --
--- Indexes for table `tbl_kelurahan`
---
-ALTER TABLE `tbl_kelurahan`
-  ADD PRIMARY KEY (`kelurahan_id`);
-
---
--- Indexes for table `tbl_komentar`
+-- Indeks untuk tabel `tbl_komentar`
 --
 ALTER TABLE `tbl_komentar`
   ADD PRIMARY KEY (`komentar_id`),
   ADD KEY `komentar_tulisan_id` (`komentar_tulisan_id`);
 
 --
--- Indexes for table `tbl_layanan`
---
-ALTER TABLE `tbl_layanan`
-  ADD PRIMARY KEY (`layanan_id`),
-  ADD KEY `layanan_kelurahan_id` (`layanan_kelurahan_id`);
-
---
--- Indexes for table `tbl_log_aktivitas`
+-- Indeks untuk tabel `tbl_log_aktivitas`
 --
 ALTER TABLE `tbl_log_aktivitas`
   ADD PRIMARY KEY (`log_id`),
   ADD KEY `log_pengguna_id` (`log_pengguna_id`);
 
 --
--- Indexes for table `tbl_nonijin`
+-- Indeks untuk tabel `tbl_nonijin`
 --
 ALTER TABLE `tbl_nonijin`
   ADD PRIMARY KEY (`nonijin_id`);
 
 --
--- Indexes for table `tbl_nopen`
+-- Indeks untuk tabel `tbl_nopen`
 --
 ALTER TABLE `tbl_nopen`
   ADD PRIMARY KEY (`nopen_id`);
 
 --
--- Indexes for table `tbl_penduduk`
---
-ALTER TABLE `tbl_penduduk`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbl_pengguna`
+-- Indeks untuk tabel `tbl_pengguna`
 --
 ALTER TABLE `tbl_pengguna`
   ADD PRIMARY KEY (`pengguna_id`);
 
 --
--- Indexes for table `tbl_pengumuman`
---
-ALTER TABLE `tbl_pengumuman`
-  ADD PRIMARY KEY (`pengumuman_id`);
-
---
--- Indexes for table `tbl_pengunjung`
+-- Indeks untuk tabel `tbl_pengunjung`
 --
 ALTER TABLE `tbl_pengunjung`
   ADD PRIMARY KEY (`pengunjung_id`);
 
 --
--- Indexes for table `tbl_peta`
---
-ALTER TABLE `tbl_peta`
-  ADD PRIMARY KEY (`peta_id`);
-
---
--- Indexes for table `tbl_poll`
+-- Indeks untuk tabel `tbl_poll`
 --
 ALTER TABLE `tbl_poll`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tbl_potensi`
---
-ALTER TABLE `tbl_potensi`
-  ADD PRIMARY KEY (`potensi_id`),
-  ADD KEY `potensi_kelurahan_id` (`potensi_kelurahan_id`);
-
---
--- Indexes for table `tbl_sejarah`
+-- Indeks untuk tabel `tbl_sejarah`
 --
 ALTER TABLE `tbl_sejarah`
   ADD PRIMARY KEY (`sejarah_id`);
 
 --
--- Indexes for table `tbl_service`
---
-ALTER TABLE `tbl_service`
-  ADD PRIMARY KEY (`service_id`);
-
---
--- Indexes for table `tbl_siswa`
+-- Indeks untuk tabel `tbl_siswa`
 --
 ALTER TABLE `tbl_siswa`
   ADD PRIMARY KEY (`siswa_id`);
 
 --
--- Indexes for table `tbl_slider`
---
-ALTER TABLE `tbl_slider`
-  ADD PRIMARY KEY (`slider_id`);
-
---
--- Indexes for table `tbl_sotk`
+-- Indeks untuk tabel `tbl_sotk`
 --
 ALTER TABLE `tbl_sotk`
   ADD PRIMARY KEY (`sotk_id`);
 
 --
--- Indexes for table `tbl_tulisan`
+-- Indeks untuk tabel `tbl_tulisan`
 --
 ALTER TABLE `tbl_tulisan`
   ADD PRIMARY KEY (`tulisan_id`),
@@ -1255,299 +907,209 @@ ALTER TABLE `tbl_tulisan`
   ADD KEY `tulisan_pengguna_id` (`tulisan_pengguna_id`);
 
 --
--- Indexes for table `tbl_tunggakan`
---
-ALTER TABLE `tbl_tunggakan`
-  ADD PRIMARY KEY (`tunggakan_id`);
-
---
--- Indexes for table `tbl_visi`
+-- Indeks untuk tabel `tbl_visi`
 --
 ALTER TABLE `tbl_visi`
   ADD PRIMARY KEY (`visi_id`);
 
 --
--- Indexes for table `user_access_menu`
+-- Indeks untuk tabel `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_menu`
+-- Indeks untuk tabel `user_menu`
 --
 ALTER TABLE `user_menu`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_role`
+-- Indeks untuk tabel `user_role`
 --
 ALTER TABLE `user_role`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_ss_menu`
+-- Indeks untuk tabel `user_ss_menu`
 --
 ALTER TABLE `user_ss_menu`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_sub_menu`
+-- Indeks untuk tabel `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_tree_menu`
+-- Indeks untuk tabel `user_tree_menu`
 --
 ALTER TABLE `user_tree_menu`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `antrian`
+-- AUTO_INCREMENT untuk tabel `antrian`
 --
 ALTER TABLE `antrian`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `keys`
---
-ALTER TABLE `keys`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `limits`
---
-ALTER TABLE `limits`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tbl_agenda`
+-- AUTO_INCREMENT untuk tabel `tbl_agenda`
 --
 ALTER TABLE `tbl_agenda`
   MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `tbl_album`
+-- AUTO_INCREMENT untuk tabel `tbl_album`
 --
 ALTER TABLE `tbl_album`
   MODIFY `album_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `tbl_bulan`
+-- AUTO_INCREMENT untuk tabel `tbl_bulan`
 --
 ALTER TABLE `tbl_bulan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `tbl_ektp`
---
-ALTER TABLE `tbl_ektp`
-  MODIFY `ektp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT for table `tbl_files`
---
-ALTER TABLE `tbl_files`
-  MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tbl_galeri`
+-- AUTO_INCREMENT untuk tabel `tbl_galeri`
 --
 ALTER TABLE `tbl_galeri`
   MODIFY `galeri_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT for table `tbl_guru`
+-- AUTO_INCREMENT untuk tabel `tbl_guru`
 --
 ALTER TABLE `tbl_guru`
   MODIFY `guru_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `tbl_ijin`
+-- AUTO_INCREMENT untuk tabel `tbl_ijin`
 --
 ALTER TABLE `tbl_ijin`
   MODIFY `ijin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `tbl_inbox`
---
-ALTER TABLE `tbl_inbox`
-  MODIFY `inbox_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `tbl_kategori`
+-- AUTO_INCREMENT untuk tabel `tbl_kategori`
 --
 ALTER TABLE `tbl_kategori`
-  MODIFY `kategori_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `kategori_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT for table `tbl_kelas`
+-- AUTO_INCREMENT untuk tabel `tbl_kelas`
 --
 ALTER TABLE `tbl_kelas`
   MODIFY `kelas_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT for table `tbl_kelurahan`
---
-ALTER TABLE `tbl_kelurahan`
-  MODIFY `kelurahan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `tbl_komentar`
+-- AUTO_INCREMENT untuk tabel `tbl_komentar`
 --
 ALTER TABLE `tbl_komentar`
   MODIFY `komentar_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `tbl_layanan`
---
-ALTER TABLE `tbl_layanan`
-  MODIFY `layanan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `tbl_log_aktivitas`
+-- AUTO_INCREMENT untuk tabel `tbl_log_aktivitas`
 --
 ALTER TABLE `tbl_log_aktivitas`
   MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tbl_nonijin`
+-- AUTO_INCREMENT untuk tabel `tbl_nonijin`
 --
 ALTER TABLE `tbl_nonijin`
   MODIFY `nonijin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `tbl_nopen`
+-- AUTO_INCREMENT untuk tabel `tbl_nopen`
 --
 ALTER TABLE `tbl_nopen`
   MODIFY `nopen_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT for table `tbl_penduduk`
---
-ALTER TABLE `tbl_penduduk`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tbl_pengguna`
+-- AUTO_INCREMENT untuk tabel `tbl_pengguna`
 --
 ALTER TABLE `tbl_pengguna`
   MODIFY `pengguna_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `tbl_pengumuman`
---
-ALTER TABLE `tbl_pengumuman`
-  MODIFY `pengumuman_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `tbl_pengunjung`
+-- AUTO_INCREMENT untuk tabel `tbl_pengunjung`
 --
 ALTER TABLE `tbl_pengunjung`
-  MODIFY `pengunjung_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1053;
+  MODIFY `pengunjung_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1054;
 
 --
--- AUTO_INCREMENT for table `tbl_peta`
---
-ALTER TABLE `tbl_peta`
-  MODIFY `peta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `tbl_poll`
+-- AUTO_INCREMENT untuk tabel `tbl_poll`
 --
 ALTER TABLE `tbl_poll`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `tbl_potensi`
---
-ALTER TABLE `tbl_potensi`
-  MODIFY `potensi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `tbl_sejarah`
+-- AUTO_INCREMENT untuk tabel `tbl_sejarah`
 --
 ALTER TABLE `tbl_sejarah`
   MODIFY `sejarah_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `tbl_service`
---
-ALTER TABLE `tbl_service`
-  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `tbl_siswa`
+-- AUTO_INCREMENT untuk tabel `tbl_siswa`
 --
 ALTER TABLE `tbl_siswa`
   MODIFY `siswa_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `tbl_slider`
---
-ALTER TABLE `tbl_slider`
-  MODIFY `slider_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
-
---
--- AUTO_INCREMENT for table `tbl_sotk`
+-- AUTO_INCREMENT untuk tabel `tbl_sotk`
 --
 ALTER TABLE `tbl_sotk`
   MODIFY `sotk_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `tbl_tulisan`
+-- AUTO_INCREMENT untuk tabel `tbl_tulisan`
 --
 ALTER TABLE `tbl_tulisan`
-  MODIFY `tulisan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `tulisan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
--- AUTO_INCREMENT for table `tbl_tunggakan`
---
-ALTER TABLE `tbl_tunggakan`
-  MODIFY `tunggakan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `tbl_visi`
+-- AUTO_INCREMENT untuk tabel `tbl_visi`
 --
 ALTER TABLE `tbl_visi`
   MODIFY `visi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `user_access_menu`
+-- AUTO_INCREMENT untuk tabel `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `user_menu`
+-- AUTO_INCREMENT untuk tabel `user_menu`
 --
 ALTER TABLE `user_menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `user_role`
+-- AUTO_INCREMENT untuk tabel `user_role`
 --
 ALTER TABLE `user_role`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `user_ss_menu`
+-- AUTO_INCREMENT untuk tabel `user_ss_menu`
 --
 ALTER TABLE `user_ss_menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `user_sub_menu`
+-- AUTO_INCREMENT untuk tabel `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT for table `user_tree_menu`
+-- AUTO_INCREMENT untuk tabel `user_tree_menu`
 --
 ALTER TABLE `user_tree_menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;

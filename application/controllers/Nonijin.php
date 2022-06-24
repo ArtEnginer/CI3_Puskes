@@ -16,7 +16,7 @@ class Nonijin extends CI_Controller
     {
         $x['tot_guru'] = $this->db->get('tbl_guru')->num_rows();
         $x['tot_siswa'] = $this->db->get('tbl_siswa')->num_rows();
-        $x['tot_files'] = $this->db->get('tbl_files')->num_rows();
+        // $x['tot_files'] = $this->db->get('tbl_files')->num_rows();
         $x['tot_agenda'] = $this->db->get('tbl_agenda')->num_rows();
         //cara baca diambil dari data person yang ada di model (nama file) dan ditambah methodnya.
 

@@ -13,7 +13,7 @@ class Nopen extends CI_Controller
 	{
 		$x['tot_guru'] = $this->db->get('tbl_guru')->num_rows();
 		$x['tot_siswa'] = $this->db->get('tbl_siswa')->num_rows();
-		$x['tot_files'] = $this->db->get('tbl_files')->num_rows();
+		// $x['tot_files'] = $this->db->get('tbl_files')->num_rows();
 		$x['tot_agenda'] = $this->db->get('tbl_agenda')->num_rows();
 		$x['data'] = $this->m_tulisan->get_all_tulisan();
 		$x['nopen'] = $this->m_nopen->get_all_nopen();
