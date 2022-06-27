@@ -18,7 +18,7 @@ class Dokter extends CI_Controller
 		$this->load->view('admin/v_dokter', $x);
 	}
 
-	function simpan_guru()
+	function simpan_dokter()
 	{
 		$config['upload_path'] = './assets/images/'; //path folder
 		$config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang dapat diakses bisa anda sesuaikan

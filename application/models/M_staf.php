@@ -1,7 +1,7 @@
 <?php 
 class M_staf extends CI_Model{
 
-	function get_all_siswa(){
+	function get_all_staf(){
 		$hsl=$this->db->query("SELECT tbl_staf.*,jabatan_nama FROM tbl_staf JOIN tbl_jabatan ON staf_jabatan_id=jabatan_id");
 		return $hsl;
 	}

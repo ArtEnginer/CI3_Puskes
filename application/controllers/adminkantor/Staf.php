@@ -15,12 +15,12 @@ class staf extends CI_Controller
 
 	function index()
 	{
-		$x['jabatan'] = $this->m_jabatan->get_all_kelas();
-		$x['data'] = $this->M_staf->get_all_siswa();
+		$x['jabatan'] = $this->m_jabatan->get_all_jabatan();
+		$x['data'] = $this->M_staf->get_all_staf();
 		$this->load->view('admin/v_staf', $x);
 	}
 
-	function simpan_siswa()
+	function simpan_staf()
 	{
 		$config['upload_path'] = './assets/images/'; //path folder
 		$config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang dapat diakses bisa anda sesuaikan
@@ -67,7 +67,7 @@ class staf extends CI_Controller
 		}
 	}
 
-	function update_siswa()
+	function update_staf()
 	{
 
 		$config['upload_path'] = './assets/images/'; //path folder
@@ -120,7 +120,7 @@ class staf extends CI_Controller
 		}
 	}
 
-	function hapus_siswa()
+	function hapus_staf()
 	{
 		$kode = $this->input->post('kode');
 		$gambar = $this->input->post('gambar');
