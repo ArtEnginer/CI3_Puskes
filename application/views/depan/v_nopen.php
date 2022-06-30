@@ -1,13 +1,23 @@
 <title>Nomor Penting</title>
+<div class="row text-center bg-success">
+  <div class="col-md-12 mb-2 p-4 ">
+    <div class="row text-center bg-success">
+      <div class="col-md-12 mb-2 p-4 ">
+        <h2 class="event-title">Kontak</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
 <section class="welcome_about">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
         <div class="table-responsive">
 
-          <div>
+          <!-- <div>
             <h2>Kontak</h2>
-          </div>
+          </div> -->
 
 
           <div class="box-body">
@@ -32,7 +42,7 @@
                   $user = ['nopen_user'];
                   $hp = ['nopen_hp'];
                   $ket = ['nopen_ket'];
-                  ?>
+                ?>
 
                   <tr>
                     <td><?php echo $no; ?></td>

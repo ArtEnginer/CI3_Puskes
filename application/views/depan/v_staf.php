@@ -1,12 +1,20 @@
 <title><?= $judul; ?></title>
+<div class="row text-center bg-success">
+  <div class="col-md-12 mb-2 p-4 ">
+    <div class="row text-center bg-success">
+      <div class="col-md-12 mb-2 p-4 ">
+        <h2 class="event-title">Data Staf</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
 <section class="our-teachers">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
 
-        <div class="contact-title">
-          <h2>Data Staff</h2>
-        </div>
+      
 
 
         <div class="box-body">
@@ -35,7 +43,7 @@
                 $jabatan_nama = $i['jabatan_nama'];
                 $photo = $i['staf_photo']
 
-                ?>
+              ?>
                 <tr>
                   <td syle="alignment:center"><?php echo $no; ?></td>
                   <?php if (empty($photo)) : ?>

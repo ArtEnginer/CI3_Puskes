@@ -1,12 +1,21 @@
 <!--============================= Nonnonijin =============================-->
 <title>Layanan Dalam Gedung</title>
+<div class="row text-center bg-success">
+    <div class="col-md-12 mb-2 p-4 ">
+        <div class="row text-center bg-success">
+            <div class="col-md-12 mb-2 p-4 ">
+                <h2 class="event-title">Layanan Dalam Gedung</h2>
+            </div>
+        </div>
+    </div>
+</div>
 <section class="welcome_about">
     <div class="container ">
         <div class="row mb-1">
             <div class="col-md-12">
 
                 <div class="contact-title">
-                    <h2>Layanan Dalam Gedung</h2>
+                    <!-- <h2>Layanan Dalam Gedung</h2> -->
                 </div>
             </div>
         </div>
@@ -32,7 +41,7 @@
                                 $no++;
                                 $judul = ['dalam_judul'];
                                 $ket = ['dalam_ket'];
-                                ?>
+                            ?>
 
                                 <tr>
                                     <td><?php echo $no; ?></td>

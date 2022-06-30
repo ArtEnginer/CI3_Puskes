@@ -1,9 +1,19 @@
 <title>Pengumuman</title>
+<div class="row text-center bg-success">
+    <div class="col-md-12 mb-2 p-4 ">
+        <div class="row text-center bg-success">
+            <div class="col-md-12 mb-2 p-4 ">
+                <h2 class="event-title">Pengumuman</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
 <section class="events">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <h2 class="event-title">Pengumuman</h2>
+                <!-- <h2 class="event-title">Pengumuman</h2> -->
             </div>
             <div class="col-md-8">
                 <!-- Nav tabs -->

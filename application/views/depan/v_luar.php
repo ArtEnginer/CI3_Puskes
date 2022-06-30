@@ -1,8 +1,21 @@
 <title><?= $judul; ?></title>
-<section class="welcome_about">
-    <div class="container">
-        <div class="row">
-            <?php foreach ($luar->result() as $luar) : ?>
+<?php foreach ($luar->result() as $luar) : ?>
+    <div class="row text-center bg-success">
+        <div class="col-md-12 mb-2 p-4 ">
+            <div class="row text-center bg-success">
+                <div class="col-md-12 mb-2 p-4 ">
+
+                    <h2><?php echo $luar->luar_judul; ?></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <section class="welcome_about">
+        <div class="container">
+            <div class="row">
 
                 <div class="col-md-5">
                     <!-- gambar -->
@@ -11,7 +24,7 @@
 
                 <div class="col-md-7">
                     <!-- judul -->
-                    <h2><?php echo $luar->luar_judul; ?></h2>
+
                     <!-- isi luar -->
                     <p><?php echo $luar->luar_isi; ?></p>
                 </div>
@@ -19,5 +32,5 @@
 
             </div>
         <?php endforeach; ?>
-    </div>
-</section>
+        </div>
+    </section>

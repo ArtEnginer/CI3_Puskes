@@ -1,10 +1,21 @@
 <title>Galeri</title>
+<div class="row text-center bg-success">
+  <div class="col-md-12 mb-2 p-4 ">
+    <div class="row text-center bg-success">
+      <div class="col-md-12 mb-2 p-4 ">
+
+        <h2>Galeri Foto Kegiatan Puskesmas</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="gallery-wrap">
   <div class="container">
     <!-- Style 2 -->
     <div class="row">
       <div class="col-md-12">
-        <h3 class="gallery-style">Galeri Foto Kegiatan Puskesmas</h3>
+        <!-- <h3 class="gallery-style">Galeri Foto Kegiatan Puskesmas</h3> -->
       </div>
     </div><br>
     <div class="row">

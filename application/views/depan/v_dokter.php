@@ -1,11 +1,23 @@
 <title><?= $judul; ?></title>
+<div class="row text-center bg-success">
+  <div class="col-md-12 mb-2 p-4 ">
+    <div class="row text-center bg-success">
+      <div class="col-md-12 mb-2 p-4 ">
+        <h2 class="event-title">
+          Data Dokter dan Perawat
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>
+
 <section class="our-teachers">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
 
         <div class="contact-title">
-          <h2>Data Dokter dan Perawat</h2>
+
         </div>
 
 
@@ -37,7 +49,7 @@
                 $jabat = $i['dokter_jabatan'];
                 $photo = $i['dokter_photo'];
 
-                ?>
+              ?>
                 <tr>
                   <td><?php echo $no; ?></td>
                   <?php if (empty($photo)) : ?>
